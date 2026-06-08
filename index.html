@@ -1,519 +1,224 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unity AI Assistant Samples</title>
-  <meta name="description" content="Unity AI Assistant sample project gallery.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: dark;
-      --background: #000;
-      --surface: #0d0d0d;
-      --surface-bright: #1a1a1a;
-      --line: #222;
-      --line-strong: #444;
-      --text: #f2f2f2;
-      --text-muted: #b9b9b9;
-      --text-dim: #888;
-      --max-width: 1180px;
-      --page-margin: 48px;
-      --section-space: 64px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      background: var(--background);
-      color: var(--text);
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img,
-    video {
-      display: block;
-      max-width: 100%;
-    }
-
-    .site-header {
-      position: fixed;
-      z-index: 10;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      border-bottom: 1px solid var(--line);
-      background: rgb(0 0 0 / 92%);
-      backdrop-filter: blur(16px);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: calc(var(--max-width) + var(--page-margin) * 2);
-      height: 100%;
-      margin: 0 auto;
-      padding: 0 var(--page-margin);
-      gap: 24px;
-    }
-
-    .brand {
-      font-family: "EB Garamond", Georgia, serif;
-      font-size: 22px;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      color: var(--text-dim);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .nav-links a {
-      border-bottom: 1px solid transparent;
-      padding: 6px 0;
-      transition: color 160ms ease, border-color 160ms ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a[aria-current="page"] {
-      border-color: currentColor;
-      color: var(--text);
-    }
-
-    .header-action,
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      border: 1px solid var(--text);
-      padding: 0 28px;
-      font-family: "Source Serif 4", Georgia, serif;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: background 180ms ease, color 180ms ease, opacity 180ms ease;
-      white-space: nowrap;
-    }
-
-    .header-action {
-      border-color: transparent;
-      background: var(--text);
-      color: #111;
-    }
-
-    .header-action:hover {
-      opacity: 0.82;
-    }
-
-    .button:hover {
-      background: var(--text);
-      color: #111;
-    }
-
-    main {
-      padding-top: 64px;
-    }
-
-    .hero,
-    .project,
-    .footer-inner {
-      width: 100%;
-      max-width: calc(var(--max-width) + var(--page-margin) * 2);
-      margin: 0 auto;
-      padding-left: var(--page-margin);
-      padding-right: var(--page-margin);
-    }
-
-    .hero {
-      display: flex;
-      align-items: center;
-      min-height: 620px;
-      padding-top: var(--section-space);
-      padding-bottom: var(--section-space);
-    }
-
-    .hero-content {
-      max-width: 720px;
-    }
-
-    .eyebrow {
-      display: block;
-      margin-bottom: 16px;
-      color: var(--text-dim);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2 {
-      margin: 0;
-      font-family: "EB Garamond", Georgia, serif;
-      font-weight: 500;
-      line-height: 1.12;
-    }
-
-    h1 {
-      max-width: 760px;
-      margin-bottom: 32px;
-      font-size: 56px;
-    }
-
-    h1 em {
-      font-weight: 400;
-    }
-
-    h2 {
-      font-size: 34px;
-    }
-
-    p {
-      margin: 0;
-      color: var(--text-muted);
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin-bottom: 56px;
-      font-size: 18px;
-    }
-
-    .scroll-note {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .scroll-note::before {
-      content: "";
-      width: 48px;
-      height: 1px;
-      background: currentColor;
-    }
-
-    .gallery {
-      padding-bottom: var(--section-space);
-    }
-
-    .project {
-      border-top: 1px solid var(--line-strong);
-      padding-top: var(--section-space);
-      padding-bottom: var(--section-space);
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
-      align-items: center;
-      gap: 64px;
-    }
-
-    .project:nth-child(even) .project-grid {
-      grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1fr);
-    }
-
-    .project:nth-child(even) .media-frame {
-      order: 2;
-    }
-
-    .project-copy {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 18px;
-    }
-
-    .project-copy p {
-      max-width: 560px;
-    }
-
-    .media-frame {
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: var(--surface-bright);
-    }
-
-    .media-frame video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: contrast(1.08) saturate(0.92);
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 4px;
-      margin: 0;
-      padding: 0;
-      color: var(--text-dim);
-      font-size: 14px;
-      font-weight: 700;
-      list-style: none;
-    }
-
-    .feature-list li::before {
-      content: "+";
-      margin-right: 8px;
-      color: var(--text-muted);
-    }
-
-    .site-footer {
-      border-top: 1px solid var(--line-strong);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 96px;
-      gap: 32px;
-      color: var(--text-dim);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 28px;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    @media (max-width: 860px) {
-      :root {
-        --page-margin: 20px;
-        --section-space: 48px;
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Unity AI Assistant | Gallery</title>
+<meta name="description" content="Unity AI Assistant sample project gallery.">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "on-tertiary-container": "#656464",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-tertiary": "#303030",
+                    "on-secondary-container": "#b7b5b4",
+                    "on-background": "#e2e2e2",
+                    "primary-fixed": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-secondary": "#313030",
+                    "tertiary": "#ffffff",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "on-surface": "#e2e2e2",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-container": "#1f1f1f",
+                    "inverse-on-surface": "#303030",
+                    "surface-tint": "#c6c6c7",
+                    "tertiary-fixed": "#e4e2e1",
+                    "primary-container": "#e2e2e2",
+                    "surface-bright": "#393939",
+                    "primary": "#ffffff",
+                    "on-error": "#690005",
+                    "secondary-container": "#474746",
+                    "surface-container-high": "#2a2a2a",
+                    "on-surface-variant": "#c4c7c8",
+                    "surface-variant": "#353535",
+                    "outline-variant": "#444748",
+                    "background": "#000000",
+                    "on-primary-container": "#636565",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#1b1b1b",
+                    "on-primary-fixed": "#1a1c1c",
+                    "surface": "#131313",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "outline": "#8e9192",
+                    "surface-container-highest": "#353535",
+                    "tertiary-container": "#e4e2e1",
+                    "error": "#ffb4ab",
+                    "inverse-primary": "#5d5f5f",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed-variant": "#454747",
+                    "on-primary": "#2f3131",
+                    "secondary": "#c8c6c5",
+                    "surface-dim": "#131313",
+                    "inverse-surface": "#e2e2e2",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c8c6c5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "gutter": "24px",
+                    "xs": "4px",
+                    "xl": "40px",
+                    "margin-mobile": "20px",
+                    "xxl": "64px",
+                    "margin-desktop": "48px",
+                    "unit": "4px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "label-md": ["Source Serif 4"],
+                    "label-sm": ["Source Serif 4"],
+                    "body-lg": ["Source Serif 4"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "body-md": ["Source Serif 4"],
+                    "headline-md": ["EB Garamond"],
+                    "headline-sm": ["EB Garamond"],
+                    "display-lg": ["EB Garamond"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
       }
-
-      .site-header {
-        height: 60px;
-      }
-
-      .header-inner {
-        gap: 16px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .header-action {
-        min-height: 36px;
-        padding: 0 18px;
-        font-size: 12px;
-      }
-
-      main {
-        padding-top: 60px;
-      }
-
-      .hero {
-        min-height: 540px;
-      }
-
-      h1 {
-        font-size: 38px;
-      }
-
-      h2 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .project-grid,
-      .project:nth-child(even) .project-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-
-      .project:nth-child(even) .media-frame {
-        order: 0;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-top: 28px;
-        padding-bottom: 28px;
-      }
-
-      .footer-links {
-        justify-content: flex-start;
-      }
-    }
-
-    @media (max-width: 460px) {
-      .brand {
-        font-size: 19px;
-      }
-
-      .header-action {
-        padding: 0 14px;
-        letter-spacing: 0.04em;
-      }
-
-      h1 {
-        font-size: 32px;
-      }
-
-      .eyebrow {
-        letter-spacing: 0.18em;
-      }
-
-      .button {
-        width: 100%;
-      }
-    }
-  </style>
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            color: #e2e2e2;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .ghost-border {
+            border: 0.5px solid #222222;
+        }
+        .ghost-border:hover {
+            border-color: #ffffff;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
+        }
+        video {
+            filter: grayscale(0.2) contrast(1.1);
+            transition: filter 0.5s ease;
+        }
+        video:hover {
+            filter: grayscale(0) contrast(1.2);
+        }
+    </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="#">UNITY AI</a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#gallery" aria-current="page">Gallery</a>
-        <a href="#">Documentation</a>
-        <a href="#">Showcase</a>
-        <a href="#">Community</a>
-      </nav>
-      <a class="header-action" href="#gallery">Explore</a>
-    </div>
-  </header>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<main class="py-xxl">
+<!-- Game Gallery -->
+<section class="space-y-xxl">
+<!-- Game 1: Mirror Mage -->
+<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-outline-variant pt-xxl">
+<div class="order-2 md:order-1">
+<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
+<video src="Videos/Project1.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Mirror Mage preview video"></video>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-lg">
+<span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Action / Survivor-Like</span>
+<h2 class="font-headline-md text-headline-md text-primary">Mirror Mage</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">A survivor-like 2D action game where you play as a mage battling monsters lurking deep within a dungeon. Your only weapon is a magical spell that reflects enemy attacks. Carefully position yourself and angle each reflection to send projectiles back at your foes. Master the art of ricocheting attacks and defeat the monsters with their own weapons.</p>
+<ul class="flex flex-wrap gap-x-md gap-y-xs font-label-md text-label-md text-outline"><li class="flex items-center font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase whitespace-nowrap mr-xs">AI Generated Assets:</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">code</span> C# Scripts</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">brush</span> Shaders</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">image</span> Sprites</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">animation</span>Sprite Sheets</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Particle Effects</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">graphic_eq</span> Sound Effects</li></ul>
+<a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="https://play.unity.com/en/games/b62015f2-549e-43d5-921b-c45ae9861dd8/mirrormage" target="_blank" rel="noopener">Learn More</a>
+</div>
+</div>
+</div>
+<!-- Game 2: Dungeon Match Heroes -->
+<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-t border-outline-variant pt-xxl">
+<div class="space-y-lg">
+<span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Puzzle / RPG</span>
+<h2 class="font-headline-md text-headline-md text-primary">Dungeon Match Heroes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">A casual game that blends match-3 puzzle mechanics with RPG progression. Match blocks to activate powerful effects and gain the upper hand in battle. Defeating enemies is only part of the challenge—collect treasure chests, earn experience, and level up quickly to maximize your chances of victory.</p>
+<ul class="flex flex-wrap gap-x-md gap-y-xs font-label-md text-label-md text-outline"><li class="flex items-center font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase whitespace-nowrap mr-xs">AI Generated Assets:</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">code</span> C# Scripts</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">brush</span> Shaders</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">image</span> Sprites</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">animation</span>Sprite Sheets</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Particle Effects</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">graphic_eq</span> Sound Effects</li></ul>
+<a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="https://play.unity.com/en/games/399e2e07-4d3f-462f-9a5c-6a8fb2c68c1a/dungeon-match-heroes" target="_blank" rel="noopener">Learn More</a>
+</div>
+<div>
+<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
+<video src="Videos/Project2.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Dungeon Match Heroes preview video"></video>
+</div>
+</div>
+</div>
+</div>
+<!-- Game 3: Drift Mayhem -->
+<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-t border-outline-variant pt-xxl">
+<div class="order-2 md:order-1">
+<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
+<video src="Videos/Project3.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Drift Mayhem preview video"></video>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-lg">
+<span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Shooting / Racing</span>
+<h2 class="font-headline-md text-headline-md text-primary">Drift Mayhem</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">This prototype started with a simple idea: "Wouldn't it look awesome to strafe enemies while drifting around them?" By locking onto a target, your vehicle can drift in circles around enemies while unleashing a barrage of attacks. Turn every hostile roaming the wasteland into swiss cheese!</p>
+<ul class="flex flex-wrap gap-x-md gap-y-xs font-label-md text-label-md text-outline"><li class="flex items-center font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase whitespace-nowrap mr-xs">AI Generated Assets:</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">code</span> C# Scripts</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">brush</span> Shaders</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">view_in_ar</span> 3D Models</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">texture</span> Textures &amp; Materials</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Particle Effects</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">graphic_eq</span> Sound Effects</li></ul>
+<a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="https://play.unity.com/en/games/43552608-5f43-4315-b673-1ae2175c90ca/driftmayhem" target="_blank" rel="noopener">Learn More</a>
+</div>
+</div>
+</div>
+</section>
+</main>
 
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-content">
-        <span class="eyebrow">Unity AI Assistant Samples</span>
-        <h1 id="hero-title">Playful prototypes built with <em>artificial intelligence</em></h1>
-        <p>
-          A compact gallery presenting three sample projects made with Unity AI Assistant.
-          Each entry will include a short description and a link to its Unity Play page.
-        </p>
-        <a class="scroll-note" href="#gallery">Scroll to explore gallery</a>
-      </div>
-    </section>
+<script>
+        // Atmospheric interaction: subtle movement for video containers
+        document.querySelectorAll('.aspect-video').forEach(container => {
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-    <section class="gallery" id="gallery" aria-label="Sample project gallery">
-      <article class="project">
-        <div class="project-grid">
-          <div class="media-frame">
-            <video src="Videos/Project1.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Project 1 preview video"></video>
-          </div>
-          <div class="project-copy">
-            <span class="eyebrow">Project 01 / Sample Game</span>
-            <h2>Prototype One</h2>
-            <p>
-              Placeholder copy for the first sample. This section will briefly describe
-              the game concept, the Unity AI Assistant workflow, and what players should notice.
-            </p>
-            <ul class="feature-list" aria-label="Project features">
-              <li>AI-assisted gameplay prototype</li>
-              <li>Playable on Unity Play</li>
-            </ul>
-            <a class="button" href="https://play.unity.com/en/games/b62015f2-549e-43d5-921b-c45ae9861dd8/mirrormage" target="_blank" rel="noopener" aria-label="Play Prototype One on Unity Play">Play Now</a>
-          </div>
-        </div>
-      </article>
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
 
-      <article class="project">
-        <div class="project-grid">
-          <div class="media-frame">
-            <video src="Videos/Project2.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Project 2 preview video"></video>
-          </div>
-          <div class="project-copy">
-            <span class="eyebrow">Project 02 / Sample Game</span>
-            <h2>Prototype Two</h2>
-            <p>
-              Placeholder copy for the second sample. This section will outline the core play
-              experience, generated elements, and notable points from the production process.
-            </p>
-            <ul class="feature-list" aria-label="Project features">
-              <li>Generated assets and behaviors</li>
-              <li>Playable on Unity Play</li>
-            </ul>
-            <a class="button" href="https://play.unity.com/en/games/399e2e07-4d3f-462f-9a5c-6a8fb2c68c1a/dungeon-match-heroes" target="_blank" rel="noopener" aria-label="Play Prototype Two on Unity Play">Play Now</a>
-          </div>
-        </div>
-      </article>
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
 
-      <article class="project">
-        <div class="project-grid">
-          <div class="media-frame">
-            <video src="Videos/Project3.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Project 3 preview video"></video>
-          </div>
-          <div class="project-copy">
-            <span class="eyebrow">Project 03 / Sample Game</span>
-            <h2>Prototype Three</h2>
-            <p>
-              Placeholder copy for the third sample. This section will summarize the theme,
-              AI-assisted content, and what visitors can try on Unity Play.
-            </p>
-            <ul class="feature-list" aria-label="Project features">
-              <li>Rapidly authored sample scene</li>
-              <li>Playable on Unity Play</li>
-            </ul>
-            <a class="button" href="https://play.unity.com/en/games/43552608-5f43-4315-b673-1ae2175c90ca/driftmayhem" target="_blank" rel="noopener" aria-label="Play Prototype Three on Unity Play">Play Now</a>
-          </div>
-        </div>
-      </article>
-    </section>
-  </main>
+                container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                container.style.transition = 'transform 0.1s ease-out';
+            });
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <a class="brand" href="#">UNITY AI</a>
-      <div class="footer-links">
-        <a href="#">Unity Play</a>
-        <a href="#">Unity AI Assistant</a>
-        <a href="#">Contact</a>
-      </div>
-      <span>Sample gallery draft</span>
-    </div>
-  </footer>
-</body>
-</html>
+            container.addEventListener('mouseleave', () => {
+                container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+                container.style.transition = 'transform 0.5s ease-in-out';
+            });
+        });
+    </script>
+</body></html>
