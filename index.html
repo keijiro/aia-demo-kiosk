@@ -1,7 +1,7 @@
 <!DOCTYPE html><html class="dark" lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Unity AI Assistant Sample Projects | Gallery</title>
+<title>AI Assistant Demo Gallery</title>
 <meta name="description" content="Unity AI Assistant sample project gallery.">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
                     "on-surface-variant": "#c4c7c8",
                     "surface-variant": "#353535",
                     "outline-variant": "#444748",
-                    "background": "#000000",
+                    "background": "#131313",
                     "on-primary-container": "#636565",
                     "error-container": "#93000a",
                     "surface-container-low": "#1b1b1b",
@@ -62,9 +62,9 @@
                     "secondary-fixed-dim": "#c8c6c5"
             },
             "borderRadius": {
-                    "DEFAULT": "0px",
-                    "lg": "0px",
-                    "xl": "0px",
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
                     "full": "9999px"
             },
             "spacing": {
@@ -130,13 +130,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #444444;
         }
-        video {
-            filter: grayscale(0.2) contrast(1.1);
-            transition: filter 0.5s ease;
-        }
-        video:hover {
-            filter: grayscale(0) contrast(1.2);
-        }
     </style>
 </head>
 <body class="font-body-md text-body-md overflow-x-hidden">
@@ -144,12 +137,12 @@
 <!-- Game Gallery -->
 <section class="space-y-xxl">
 <!-- Game 1: Drift Mayhem -->
-<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="px-margin-desktop max-w-7xl mx-auto" id="drift-mayhem-section">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-outline-variant pt-xxl">
 <div class="order-2 md:order-1">
-<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
-<video src="Videos/Project3.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Drift Mayhem preview video"></video>
-</div>
+<a class="block bg-surface-container overflow-hidden ghost-border" href="https://play.unity.com/en/games/43552608-5f43-4315-b673-1ae2175c90ca/driftmayhem" target="_blank" rel="noopener">
+<video src="Videos/Project3.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-auto object-cover" aria-label="Drift Mayhem preview video"></video>
+</a>
 </div>
 <div class="order-1 md:order-2 space-y-lg">
 <span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Shooting / Racing</span>
@@ -161,7 +154,7 @@
 </div>
 </div>
 <!-- Game 2: Dungeon Match Heroes -->
-<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="px-margin-desktop max-w-7xl mx-auto" id="dungeon-match-heroes-section">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-t border-outline-variant pt-xxl">
 <div class="space-y-lg">
 <span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Puzzle / RPG</span>
@@ -171,19 +164,19 @@
 <a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="https://play.unity.com/en/games/399e2e07-4d3f-462f-9a5c-6a8fb2c68c1a/dungeon-match-heroes" target="_blank" rel="noopener">Learn More</a>
 </div>
 <div>
-<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
-<video src="Videos/Project2.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Dungeon Match Heroes preview video"></video>
-</div>
+<a class="block bg-surface-container overflow-hidden ghost-border" href="https://play.unity.com/en/games/399e2e07-4d3f-462f-9a5c-6a8fb2c68c1a/dungeon-match-heroes" target="_blank" rel="noopener">
+<video src="Videos/Project2.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-auto object-cover" aria-label="Dungeon Match Heroes preview video"></video>
+</a>
 </div>
 </div>
 </div>
 <!-- Game 3: Mirror Mage -->
-<div class="px-margin-desktop max-w-7xl mx-auto">
+<div class="px-margin-desktop max-w-7xl mx-auto" id="mirror-mage-section">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-t border-outline-variant pt-xxl">
 <div class="order-2 md:order-1">
-<div class="aspect-video bg-surface-container overflow-hidden ghost-border" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1); transition: transform 0.5s ease-in-out;">
-<video src="Videos/Project1.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover" aria-label="Mirror Mage preview video"></video>
-</div>
+<a class="block bg-surface-container overflow-hidden ghost-border" href="https://play.unity.com/en/games/b62015f2-549e-43d5-921b-c45ae9861dd8/mirrormage" target="_blank" rel="noopener">
+<video src="Videos/Project1.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-auto object-cover" aria-label="Mirror Mage preview video"></video>
+</a>
 </div>
 <div class="order-1 md:order-2 space-y-lg">
 <span class="font-label-sm text-label-sm text-outline tracking-widest uppercase">Genre: Action / Survivor-Like</span>
@@ -196,29 +189,4 @@
 </div>
 </section>
 </main>
-
-<script>
-        // Atmospheric interaction: subtle movement for video containers
-        document.querySelectorAll('.aspect-video').forEach(container => {
-            container.addEventListener('mousemove', (e) => {
-                const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = (y - centerY) / 20;
-                const rotateY = (centerX - x) / 20;
-
-                container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-                container.style.transition = 'transform 0.1s ease-out';
-            });
-
-            container.addEventListener('mouseleave', () => {
-                container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
-                container.style.transition = 'transform 0.5s ease-in-out';
-            });
-        });
-    </script>
 </body></html>
