@@ -4,14 +4,25 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Drift Mayhem</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      /* Inlined from the former TemplateData/style.css (image-free, slimmed) */
+      body { padding: 0; margin: 0; background: #0e0e0e }
+      #unity-container { position: absolute }
+      #unity-container.unity-desktop { top: 0; left: 0; width: 100%; height: 100% }
+      #unity-container.unity-mobile { position: fixed; width: 100%; height: 100% }
+      #unity-canvas { background: #231f20 }
+      .unity-desktop #unity-canvas { width: 100%; height: 100%; display: block }
+      .unity-mobile #unity-canvas { width: 100%; height: 100% }
+      #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+      #unity-progress-bar-empty { width: 200px; height: 6px; background: #333333 }
+      #unity-progress-bar-full { width: 0%; height: 100%; background: #ffffff }
+      #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; color: black; padding: 10px; display: none }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=540 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
