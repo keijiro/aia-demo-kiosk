@@ -45,43 +45,15 @@
 </div>
 </div>
 <!-- Bottom: Documentation Area (Full Width) -->
-<div class="w-full max-w-[1920px] flex flex-col"><div class="flex items-center justify-between border-b border-surface-variant pb-md mb-md">
+<div id="prompt-log" data-prompts-dir="DriftMayhem/Prompts" class="w-full max-w-[1920px] flex flex-col"><div class="flex items-center justify-between border-b border-surface-variant pb-md mb-md">
 <h3 class="font-label-md text-label-md uppercase tracking-widest text-primary">Prompt Log</h3>
 </div>
 <div class="flex flex-col md:flex-row gap-xl min-h-[400px] max-h-[600px]">
-<!-- Sidebar Selection List -->
-<aside class="w-full md:w-1/4 flex flex-col gap-sm border-r border-surface-variant/30 pr-md">
-<button class="flex items-center justify-between p-md bg-surface-container-high text-primary border-l-2 border-primary transition-all">
-<span class="font-label-md">20260304 1201 Initial Design</span>
-<span class="material-symbols-outlined text-sm">chevron_right</span>
-</button>
-<button class="flex items-center justify-between p-md hover:bg-surface-container text-on-surface-variant transition-all">
-<span class="font-label-md">20260305 1012 Input System</span>
-</button>
-</aside>
+<!-- Sidebar Selection List (populated by shared/prompt-log.js) -->
+<aside id="prompt-log-list" class="w-full md:w-1/4 flex flex-col gap-sm border-r border-surface-variant/30 pr-md overflow-y-auto custom-scrollbar"></aside>
 <!-- Main Content Area -->
 <div class="flex-1 overflow-y-auto pr-md custom-scrollbar" style="scrollbar-width: thin; scrollbar-color: rgb(51, 51, 51) rgb(0, 0, 0); overflow-y: scroll;">
-<div class="space-y-xl text-on-surface-variant leading-relaxed">
-<div class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-primary">### System Prompt</h3>
-<p class="">You are a specialized game designer focused on high-speed kinetic motion. Your task is to maintain the mathematical integrity of the drift-strafe algorithms while ensuring the visual fidelity of the particle shaders remains at a premium level. Every interaction must feel heavy yet responsive.</p>
-</div>
-<div class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-primary">### System Prompt</h3>
-<ul class="list-none space-y-sm"><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Drift-strafe combat:</strong> High-intensity vehicular combat mechanics.</span></li><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Target locking system:</strong> Precision aiming while maintaining high-speed drifts.</span></li><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Physics-based vehicle movement:</strong> Realistic weight and momentum for drifting.</span></li></ul>
-</div>
-<div class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-primary">### System Prompt</h3>
-<ul class="list-none space-y-sm"><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Drift-strafe combat:</strong> High-intensity vehicular combat mechanics.</span></li><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Target locking system:</strong> Precision aiming while maintaining high-speed drifts.</span></li><li class="flex items-start gap-md"><span class="text-primary mt-1">•</span><span class=""><strong>Physics-based vehicle movement:</strong> Realistic weight and momentum for drifting.</span></li></ul>
-</div>
-<div class="space-y-md">
-<h3 class="font-headline-sm text-headline-sm text-primary">### System Prompt</h3>
-<p class="">You are a specialized game designer focused on high-speed kinetic motion. Your task is to maintain the mathematical integrity of the drift-strafe algorithms while ensuring the visual fidelity of the particle shaders remains at a premium level. Every interaction must feel heavy yet responsive.</p>
-</div>
-<div class="py-lg border-t border-surface-variant/30 text-on-tertiary-container font-label-sm italic">
-End of Technical Specification document. Last updated 12.04.2024.
-</div>
-</div>
+<div id="prompt-log-content" class="prompt-md"></div>
 </div>
 </div></div>
 </section>
@@ -89,4 +61,7 @@ End of Technical Specification document. Last updated 12.04.2024.
 <!-- Embedded Unity WebGL Player (shared embedder, configured via data-* above) -->
 <script src="shared/unity-embed.js"></script>
 <script src="shared/ui.js"></script>
+<!-- Prompt Log: render markdown logs selected from the sidebar -->
+<script src="shared/marked.min.js"></script>
+<script src="shared/prompt-log.js"></script>
 </body></html>
