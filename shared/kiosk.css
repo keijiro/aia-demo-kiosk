@@ -48,7 +48,7 @@ body {
   }
 }
 
-/* Rendered Markdown prose for the Prompt Log (marked output has no classes). */
+/* Pre-rendered Markdown prose for the Prompt Log (plain HTML, no utility classes). */
 .prompt-md { color: #e2e2e2; font-family: "Source Serif 4", serif; font-size: 16px; line-height: 1.6; }
 .prompt-md > :first-child { margin-top: 0; }
 .prompt-md h1 { font-family: "EB Garamond", serif; font-size: 32px; line-height: 1.2; color: #ffffff; margin: 0 0 16px; }

@@ -8,9 +8,9 @@
 //     </div>
 //   </div>
 //
-// `data-prompts-dir` must contain an `index.json` listing the *.md filenames.
-// Requires marked (shared/marked.min.js) to be loaded first. Styles: .prompt-md
-// in kiosk.css.
+// `data-prompts-dir` must contain an `index.json` listing pre-rendered *.html
+// fragments (produced by tools/render-prompts.js). View time is just fetch +
+// innerHTML — no client-side markdown parsing. Styles: .prompt-md in kiosk.css.
 (function () {
   var root = document.querySelector("#prompt-log");
   if (!root) return;
@@ -26,28 +26,13 @@
   var BTN_IDLE = " hover:bg-surface-container text-on-surface-variant border-transparent";
 
   function parseName(file) {
-    var base = file.replace(/\.md$/, "");
+    var base = file.replace(/\.(html|md)$/, "");
     var first = base.indexOf("-");
     var last = base.lastIndexOf("-");
     var dateRaw = base.slice(0, first); // e.g. 20260531
     var title = base.slice(first + 1, last).replace(/_/g, " ");
     var date = dateRaw.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
     return { file: file, title: title, date: date, dateRaw: dateRaw };
-  }
-
-  // Hide the local filesystem Path and the Task ID from the metadata header.
-  function stripMeta(md) {
-    return md.replace(/^- \*\*(Path|Task ID):\*\*.*\n?/gm, "");
-  }
-
-  function render(md) {
-    if (window.marked && typeof window.marked.parse === "function") {
-      return window.marked.parse(md);
-    }
-    // Fallback: escaped preformatted text if marked is unavailable.
-    var pre = document.createElement("pre");
-    pre.textContent = md;
-    return pre.outerHTML;
   }
 
   function setActive(button) {
@@ -66,8 +51,8 @@
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.text();
       })
-      .then(function (md) {
-        contentEl.innerHTML = render(stripMeta(md));
+      .then(function (html) {
+        contentEl.innerHTML = html;
         scroller.scrollTop = 0;
       })
       .catch(function (err) {
