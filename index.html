@@ -140,7 +140,7 @@
 <div class="px-margin-desktop max-w-7xl mx-auto" id="drift-mayhem-section">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-xxl items-center border-outline-variant pt-xxl">
 <div class="order-2 md:order-1">
-<a class="block bg-surface-container overflow-hidden ghost-border" href="https://play.unity.com/en/games/43552608-5f43-4315-b673-1ae2175c90ca/driftmayhem" target="_blank" rel="noopener">
+<a class="block bg-surface-container overflow-hidden ghost-border" href="DriftMayhem.html">
 <video src="Videos/Project3.mp4" autoplay muted loop playsinline preload="metadata" class="w-full h-auto object-cover" aria-label="Drift Mayhem preview video"></video>
 </a>
 </div>
@@ -149,7 +149,7 @@
 <h2 class="font-headline-md text-headline-md text-primary">Drift Mayhem</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">This prototype started with a simple idea: "Wouldn't it look awesome to strafe enemies while drifting around them?" By locking onto a target, your vehicle can drift in circles around enemies while unleashing a barrage of attacks. Turn every hostile roaming the wasteland into swiss cheese!</p>
 <ul class="flex flex-wrap gap-x-md gap-y-xs font-label-md text-label-md text-outline"><li class="flex items-center font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase whitespace-nowrap mr-xs">AI Generated Assets:</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">code</span> C# Scripts</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">brush</span> Shaders</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">view_in_ar</span> 3D Models</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">texture</span> Textures &amp; Materials</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Particle Effects</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">graphic_eq</span> Sound Effects</li></ul>
-<a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="https://play.unity.com/en/games/43552608-5f43-4315-b673-1ae2175c90ca/driftmayhem" target="_blank" rel="noopener">Learn More</a>
+<a class="inline-block font-label-md text-label-md text-primary border border-primary px-xl py-md hover:bg-primary hover:text-on-primary transition-all duration-300 uppercase tracking-widest" href="DriftMayhem.html">Learn More</a>
 </div>
 </div>
 </div>
@@ -189,4 +189,14 @@
 </div>
 </section>
 </main>
+<script>
+    // Resume preview videos when the page is restored from the back/forward
+    // cache (bfcache); otherwise they stay paused after navigating back.
+    window.addEventListener('pageshow', () => {
+      document.querySelectorAll('video').forEach((v) => {
+        const p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+      });
+    });
+</script>
 </body></html>

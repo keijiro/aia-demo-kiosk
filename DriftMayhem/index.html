@@ -17,11 +17,6 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Drift Mayhem</div>
-      </div>
     </div>
     <script>
       var canvas = document.querySelector("#unity-canvas");
@@ -103,9 +98,9 @@
 
 
       } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "960px";
-        canvas.style.height = "540px";
+        // Desktop style: fill the embedding panel (1280x720) completely.
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
@@ -117,10 +112,6 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-
               }).catch((message) => {
                 alert(message);
               });
