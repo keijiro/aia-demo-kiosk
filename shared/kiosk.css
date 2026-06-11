@@ -79,3 +79,9 @@ body {
 #unity-progress-bar-empty { width: 200px; height: 6px; background: #333333; }
 #unity-progress-bar-full { width: 0%; height: 100%; background: #ffffff; }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%, 0); background: #ffffff; color: #000000; padding: 10px; display: none; z-index: 10; }
+
+/* "Click to Play" overlay — defers Unity loading until clicked. */
+#unity-poster { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 0; background: #0e0e0e; color: #e2e2e2; cursor: pointer; transition: background 0.2s, color 0.2s; }
+#unity-poster:hover { background: #1b1b1b; color: #ffffff; }
+#unity-poster .material-symbols-outlined { font-size: 64px; }
+#unity-poster .unity-poster-label { font-family: "Source Serif 4", serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }

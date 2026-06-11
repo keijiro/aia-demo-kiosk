@@ -57,41 +57,59 @@
     showBanner: unityShowBanner,
   };
 
-  // Capture any AudioContext the engine creates so it can be resumed on the
-  // first user interaction anywhere on the page (browser autoplay policy),
-  // not only when the canvas itself is clicked.
-  var audioContexts = [];
-  var OrigAC = window.AudioContext || window.webkitAudioContext;
-  if (OrigAC) {
-    var WrappedAC = function () {
-      var ctx = new OrigAC(...arguments);
-      audioContexts.push(ctx);
-      return ctx;
-    };
-    WrappedAC.prototype = OrigAC.prototype;
-    window.AudioContext = WrappedAC;
-    window.webkitAudioContext = WrappedAC;
-  }
-  function resumeAudio() {
-    audioContexts.forEach(function (c) { if (c.state === "suspended") c.resume(); });
-  }
-  ["pointerdown", "keydown", "touchstart"].forEach(function (ev) {
-    window.addEventListener(ev, resumeAudio, { passive: true });
-  });
-
-  loadingBar.style.display = "block";
-
-  var loader = document.createElement("script");
-  loader.src = buildUrl + "/" + name + ".loader.js";
-  loader.onload = function () {
-    createUnityInstance(canvas, config, function (progress) {
-      progressFull.style.width = 100 * progress + "%";
-    }).then(function (unityInstance) {
-      window.unityInstance = unityInstance;
-      loadingBar.style.display = "none";
-    }).catch(function (message) {
-      unityShowBanner(message, "error");
+  // Begin loading and running the build. Triggered by the user clicking the
+  // start overlay, so the build does not download or run on page open.
+  function startUnity() {
+    // Capture any AudioContext the engine creates so it can be resumed on a
+    // user interaction (browser autoplay policy). The starting click itself is
+    // a gesture, so audio is unlocked from the moment playback begins.
+    var audioContexts = [];
+    var OrigAC = window.AudioContext || window.webkitAudioContext;
+    if (OrigAC) {
+      var WrappedAC = function () {
+        var ctx = new OrigAC(...arguments);
+        audioContexts.push(ctx);
+        return ctx;
+      };
+      WrappedAC.prototype = OrigAC.prototype;
+      window.AudioContext = WrappedAC;
+      window.webkitAudioContext = WrappedAC;
+    }
+    function resumeAudio() {
+      audioContexts.forEach(function (c) { if (c.state === "suspended") c.resume(); });
+    }
+    ["pointerdown", "keydown", "touchstart"].forEach(function (ev) {
+      window.addEventListener(ev, resumeAudio, { passive: true });
     });
-  };
-  document.body.appendChild(loader);
+
+    loadingBar.style.display = "block";
+
+    var loader = document.createElement("script");
+    loader.src = buildUrl + "/" + name + ".loader.js";
+    loader.onload = function () {
+      createUnityInstance(canvas, config, function (progress) {
+        progressFull.style.width = 100 * progress + "%";
+      }).then(function (unityInstance) {
+        window.unityInstance = unityInstance;
+        loadingBar.style.display = "none";
+      }).catch(function (message) {
+        unityShowBanner(message, "error");
+      });
+    };
+    document.body.appendChild(loader);
+  }
+
+  // Show a "click to play" overlay; defer all loading until it is clicked.
+  var poster = document.createElement("button");
+  poster.id = "unity-poster";
+  poster.type = "button";
+  poster.setAttribute("aria-label", "Play " + (config.productName || "build"));
+  poster.innerHTML =
+    '<span class="material-symbols-outlined">play_arrow</span>' +
+    '<span class="unity-poster-label">Click to Play</span>';
+  poster.addEventListener("click", function () {
+    poster.remove();
+    startUnity();
+  }, { once: true });
+  container.appendChild(poster);
 })();
