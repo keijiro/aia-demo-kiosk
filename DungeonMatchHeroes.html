@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title class="">Project Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Eb+Garamond:wght@400;500;700&amp;family=Source+Serif+4:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="shared/tailwind-config.js"></script>
+<link href="shared/kiosk.css" rel="stylesheet"/>
+</head>
+<body class="font-body-md text-body-md">
+<!-- Main Content Area -->
+<main class="min-h-screen">
+<!-- Hero Header -->
+<section class="custom-container py-xl border-b border-surface-variant">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-xl">
+<div class="max-w-2xl">
+<a class="inline-flex items-center gap-xs text-on-surface-variant font-label-md text-label-md hover:text-primary transition-all mb-md" href="index.html">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            Gallery
+          </a>
+<h1 class="font-display-lg text-display-lg mb-md leading-none">Dungeon Match Heroes</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">A casual game that blends match-3 puzzle mechanics with RPG progression. Match blocks to activate powerful effects and gain the upper hand in battle. Defeating enemies is only part of the challenge—collect treasure chests, earn experience, and level up quickly to maximize your chances of victory.</p><ul class="flex flex-wrap gap-x-md gap-y-xs font-label-md text-label-md text-outline mt-md"><li class="flex items-center font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase whitespace-nowrap mr-xs">AI Generated Assets:</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">code</span> C# Scripts</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">brush</span> Shaders</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">image</span> Sprites</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">animation</span> Sprite Sheets</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Particle Effects</li><li class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">graphic_eq</span> Sound Effects</li></ul>
+</div>
+<div class="flex flex-col items-start md:items-end">
+<a class="inline-flex items-center gap-md text-primary font-label-md text-label-md border-b border-primary/20 pb-1 hover:border-primary transition-all" href="https://github.com/unity-ai/dungeon-match-heroes">
+<span class="material-symbols-outlined">code</span>
+            GitHub Repository
+          </a>
+</div>
+</div>
+</section>
+<!-- Project Layout Stack -->
+<section class="custom-container py-xxl flex flex-col items-center gap-xxl">
+<!-- Top: Gameplay Container (Fixed 1920x1080) -->
+<div class="gameplay-viewport ghost-border relative overflow-hidden bg-surface-container-lowest group shrink-0 w-[1280px] h-[720px] mx-auto">
+<div id="unity-container" data-build-dir="DungeonMatchHeroes" data-build-name="DungeonMatchHeroes" data-product-name="Dungeon Match Heroes" data-product-version="0.1" data-company-name="Keijiro">
+<canvas id="unity-canvas" width="1280" height="720" tabindex="-1"></canvas>
+<div id="unity-loading-bar">
+<div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div>
+</div>
+<div id="unity-warning"> </div>
+</div>
+</div>
+<!-- Bottom: Documentation Area (Full Width) -->
+<div id="prompt-log" data-prompts-dir="DungeonMatchHeroes/Prompts" class="w-full max-w-[1920px] flex flex-col"><div class="flex items-center justify-between border-b border-surface-variant pb-md mb-md">
+<h3 class="font-label-md text-label-md uppercase tracking-widest text-primary">Prompt Log</h3>
+</div>
+<div class="flex flex-col md:flex-row gap-xl min-h-[400px] max-h-[600px]">
+<!-- Sidebar Selection List (populated by shared/prompt-log.js) -->
+<aside id="prompt-log-list" class="w-full md:w-1/4 flex flex-col gap-sm border-r border-surface-variant/30 pr-md overflow-y-auto custom-scrollbar"></aside>
+<!-- Main Content Area -->
+<div class="flex-1 overflow-y-auto pr-md custom-scrollbar" style="scrollbar-width: thin; scrollbar-color: rgb(51, 51, 51) rgb(0, 0, 0); overflow-y: scroll;">
+<div id="prompt-log-content" class="prompt-md"></div>
+</div>
+</div></div>
+</section>
+</main>
+<!-- Embedded Unity WebGL Player (shared embedder, configured via data-* above) -->
+<script src="shared/unity-embed.js"></script>
+<script src="shared/ui.js"></script>
+<!-- Prompt Log: load pre-rendered HTML logs selected from the sidebar -->
+<script src="shared/prompt-log.js"></script>
+</body></html>

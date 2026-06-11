@@ -25,14 +25,21 @@
   var BTN_ACTIVE = " bg-surface-container-high text-primary border-primary";
   var BTN_IDLE = " hover:bg-surface-container text-on-surface-variant border-transparent";
 
+  // Filenames are "YYYYMMDD-Title-hash" or "YYYYMMDD-HHMM-Title-hash"
+  // (the optional HHMM time segment varies by project).
   function parseName(file) {
     var base = file.replace(/\.(html|md)$/, "");
-    var first = base.indexOf("-");
-    var last = base.lastIndexOf("-");
-    var dateRaw = base.slice(0, first); // e.g. 20260531
-    var title = base.slice(first + 1, last).replace(/_/g, " ");
+    var m = base.match(/^(\d{8})(?:-(\d{4}))?-(.+)-[0-9a-f]{6,}$/);
+    var dateRaw, time, titleRaw;
+    if (m) {
+      dateRaw = m[1]; time = m[2] || ""; titleRaw = m[3];
+    } else {
+      var first = base.indexOf("-"), last = base.lastIndexOf("-");
+      dateRaw = base.slice(0, first); time = ""; titleRaw = base.slice(first + 1, last);
+    }
     var date = dateRaw.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
-    return { file: file, title: title, date: date, dateRaw: dateRaw };
+    if (time) date += " " + time.slice(0, 2) + ":" + time.slice(2);
+    return { file: file, title: titleRaw.replace(/_/g, " "), date: date, sortKey: dateRaw + (time || "0000") };
   }
 
   function setActive(button) {
@@ -91,7 +98,7 @@
     })
     .then(function (files) {
       var entries = files.map(parseName).sort(function (a, b) {
-        return a.dateRaw.localeCompare(b.dateRaw); // oldest first
+        return a.sortKey.localeCompare(b.sortKey); // oldest first
       });
       listEl.innerHTML = "";
       var firstButton = null;
