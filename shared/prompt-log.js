@@ -96,8 +96,15 @@
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
     })
-    .then(function (files) {
-      var entries = files.map(parseName).sort(function (a, b) {
+    .then(function (items) {
+      // index.json entries may be plain filenames or { file, title } objects;
+      // an explicit title (authored in titles.json) overrides the filename one.
+      var entries = items.map(function (it) {
+        var file = typeof it === "string" ? it : it.file;
+        var meta = parseName(file);
+        if (it && it.title) meta.title = it.title;
+        return meta;
+      }).sort(function (a, b) {
         return a.sortKey.localeCompare(b.sortKey); // oldest first
       });
       listEl.innerHTML = "";

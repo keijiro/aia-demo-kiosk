@@ -1,12 +1,42 @@
 [
-  "20260529-1516-Unity_Project_Overview_and_Details-ae049454.html",
-  "20260530-1637-Unity_Project_Handoff_Document_Review-cb88226b.html",
-  "20260531-1105-Unity_Infinite_Terrain_System_Overview-a95b72cf.html",
-  "20260531-1447-Implementing_Patrolling_Drone_Enemy_AI-7081c0b1.html",
-  "20260531-1843-Fixing_Unity_Tire_Smoke_Errors-3a7bfd64.html",
-  "20260531-2046-Unity_Lock-on_Camera_Control_Logic-1f3613a3.html",
-  "20260531-2116-Adjusting_Lock-on_Drift_Inspector_Properties-67f2e5d1.html",
-  "20260601-1628-Designing_Time_Based_Difficulty_Curves-0e1579f0.html",
-  "20260602-1133-Dynamic_shader_and_material_impact-2353111c.html",
-  "20260602-1519-Listing_GLB_files_in_Unity-d523ab43.html"
+  {
+    "file": "20260529-1516-Unity_Project_Overview_and_Details-ae049454.html",
+    "title": "自車操作プロトタイプの実装"
+  },
+  {
+    "file": "20260530-1637-Unity_Project_Handoff_Document_Review-cb88226b.html",
+    "title": "ドリフト挙動の再実装（距離拘束）"
+  },
+  {
+    "file": "20260531-1105-Unity_Infinite_Terrain_System_Overview-a95b72cf.html",
+    "title": "無限地形の頂点カラー着色"
+  },
+  {
+    "file": "20260531-1447-Implementing_Patrolling_Drone_Enemy_AI-7081c0b1.html",
+    "title": "敵ドローンAIとダメージ処理の実装"
+  },
+  {
+    "file": "20260531-1843-Fixing_Unity_Tire_Smoke_Errors-3a7bfd64.html",
+    "title": "タイヤ煙エフェクトの修正"
+  },
+  {
+    "file": "20260531-2046-Unity_Lock-on_Camera_Control_Logic-1f3613a3.html",
+    "title": "ロックオンカメラのパラメータ調整"
+  },
+  {
+    "file": "20260531-2116-Adjusting_Lock-on_Drift_Inspector_Properties-67f2e5d1.html",
+    "title": "ロックオンドリフト挙動の調整"
+  },
+  {
+    "file": "20260601-1628-Designing_Time_Based_Difficulty_Curves-0e1579f0.html",
+    "title": "時間経過による難易度曲線の実装"
+  },
+  {
+    "file": "20260602-1133-Dynamic_shader_and_material_impact-2353111c.html",
+    "title": "動的マテリアル生成のアセット化"
+  },
+  {
+    "file": "20260602-1519-Listing_GLB_files_in_Unity-d523ab43.html",
+    "title": "GLBテクスチャの外部アセット化"
+  }
 ]
