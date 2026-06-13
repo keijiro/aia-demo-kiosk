@@ -2,16 +2,17 @@
 //
 // Language is chosen via ?lang=en|ja|ko (default en). This script:
 //   - sets <html lang>,
-//   - injects a fixed top-right flag switcher (🇺🇸 / 🇯🇵 / 🇰🇷),
+//   - injects a fixed top-right language dropdown (English / Japanese / Korean),
 //   - localizes only elements tagged data-i18n (the game description paragraph),
 //     swapping innerHTML to their data-ja / data-ko value for those languages.
 // Everything else (genre, asset list, UI labels, titles) stays English.
 // Prompt-log bodies are localized separately by shared/prompt-log.js.
 (function () {
+  // Labels are intentionally all in English for a consistent look.
   var LANGS = [
-    { code: "en", label: "🇺🇸", title: "English" },
-    { code: "ja", label: "🇯🇵", title: "日本語" },
-    { code: "ko", label: "🇰🇷", title: "한국어" },
+    { code: "en", label: "English" },
+    { code: "ja", label: "Japanese" },
+    { code: "ko", label: "Korean" },
   ];
 
   var lang = (function () {
@@ -46,22 +47,24 @@
     });
   }
 
-  // Top-right language switcher.
+  // Top-right language dropdown.
   function langHref(code) {
     var u = new URL(location.href);
     u.searchParams.set("lang", code);
     return u.pathname + u.search;
   }
-  var nav = document.createElement("nav");
-  nav.id = "lang-switch";
+  var select = document.createElement("select");
+  select.id = "lang-switch";
+  select.setAttribute("aria-label", "Language");
   LANGS.forEach(function (l) {
-    var a = document.createElement("a");
-    a.href = langHref(l.code);
-    a.textContent = l.label;
-    a.title = l.title;
-    a.setAttribute("aria-label", l.title);
-    if (l.code === lang) a.className = "active";
-    nav.appendChild(a);
+    var o = document.createElement("option");
+    o.value = l.code;
+    o.textContent = l.label;
+    if (l.code === lang) o.selected = true;
+    select.appendChild(o);
   });
-  document.body.appendChild(nav);
+  select.addEventListener("change", function () {
+    location.href = langHref(select.value);
+  });
+  document.body.appendChild(select);
 })();
