@@ -17,11 +17,11 @@ body {
   border: 1px solid #222222; font-family: "Source Serif 4", serif;
 }
 #lang-switch a {
-  padding: 4px 10px; font-size: 12px; letter-spacing: 0.03em;
-  background: #0e0e0e; color: #8e9192; text-decoration: none; transition: color 0.2s, background 0.2s;
+  padding: 4px 9px; font-size: 16px; line-height: 1;
+  background: #0e0e0e; text-decoration: none; transition: background 0.2s;
 }
-#lang-switch a:hover { color: #ffffff; }
-#lang-switch a.active { background: #ffffff; color: #000000; }
+#lang-switch a:hover { background: #2a2a2a; }
+#lang-switch a.active { background: #ffffff; }
 
 /* Hairline frames used for gallery cards and the gameplay panel. */
 .ghost-border { border: 1px solid #222222; }
