@@ -1,0 +1,910 @@
+<h1>Enemy Movement and Attack Pattern Tuning</h1>
+<ul>
+<li><strong>Date:</strong> 2026-03-25 23:05</li>
+<li><strong>Messages:</strong> 6</li>
+</ul>
+<hr>
+<h2>🧑 User</h2>
+<p>Please review the attached document to understand the project overview.</p>
+<h2>🤖 Assistant</h2>
+<p>I have reviewed the attached document and understood the overview and guidelines for the project &quot;MirrorMage.&quot;</p>
+<h3><strong>Key Project Points</strong></h3>
+<ul>
+<li><strong>Genre</strong>: A 2D top-down &quot;survivor-style&quot; action game.</li>
+<li><strong>Core Element</strong>: A &quot;Barrier&quot; system that reflects enemy projectiles.</li>
+<li><strong>Visual Style</strong>: 64-bit pixel art, sword-and-sorcery fantasy. Uses URP and KinoEight for an 8-bit style post-process.</li>
+<li><strong>Controls</strong>: Mouse-follow movement and left-click to activate the barrier.</li>
+<li><strong>Technical Constraints</strong>: <ul>
+<li><strong>Input</strong>: Uses the New Input System, but retrieves input directly via <code>Mouse.current</code> etc. without going through Action Maps.</li>
+<li><strong>UI</strong>: Built entirely with UI Toolkit (UITK).</li>
+<li><strong>Animation</strong>: Based on a diagonal forward-facing (southwest) walk loop, with left-right flipping used for rightward movement.</li>
+</ul>
+</li>
+</ul>
+<p>I have also noted the development guidelines (such as model ID specifications and input implementation methods). How can I assist you — with implementing specific features, generating assets, or something else?</p>
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Understanding the Project Scope</strong></p>
+<p>I&#39;m currently focused on the provided project overview. I&#39;ve begun reading the attached files, specifically <code>Guidance.txt</code>, <code>Idea.txt</code>, and <code>Project_Overview.md</code>. My initial assessment indicates the user is expecting a comprehensive understanding of the project&#39;s key elements. The Markdown file seems crucial for a top-level summary.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Evaluating File Content</strong></p>
+<p>Now I&#39;m diving deeper into the specifics. I&#39;ve begun reviewing the contents of <code>Guidance.txt</code>, <code>Idea.txt</code>, and <code>Project_Overview.md</code>, paying close attention to any discrepancies or additional insights compared to the prompt&#39;s provided overview. The goal is to identify if the attached files provide any new information, especially related to &quot;MirrorMage&quot;.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetTextAssetContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;instanceID&quot;: 49340
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;Data&quot;: &quot;この文書は、このプロジェクトで守るべきガイドラインを記すものです。\n\n- キャラクター（プレイヤーや敵）は斜め前向き（南西）で歩行ループアニメーションを常に再生します。移動が右方向の場合は描画を左右反転します。\n- キャラクターのデザインには 64-bit Pixel (ModelId: 245801a2-f850-4f09-9cee-9ef74c5872a6) を優先して使って下さい。\n- 斜め向きのスプライトを生成し直す場合は、Gemini 3.0 Pro (ModelId: 2e08f181-6547-40b4-b51e-f6cc1fd63500) を使用して、既存のスタイルに合わせた斜め前向き（南西）の画像を生成します。\n- 歩きのアニメーション（スプライトシート）の構築には、Kling 2.5 Pro (ModelId: 14785f64-3fcc-432a-8205-cdd2f582c757) を使用します。\n- 入力の処理には New Input System を使いますが、Action Map などの複雑なシステムは用いずに、Keyboard.current や Mouse.current を経由した直接的なメソッド呼び出しによって入力を検出するようにして下さい。\n&quot;,
+  &quot;Info&quot;: &quot;&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetTextAssetContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;instanceID&quot;: 49342
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;Data&quot;: &quot;いわゆる \&quot;Survivors-like\&quot; な 2D シューティングゲームを作成します。\n- プレイヤーはマウスカーソルをある速度以下で滑らかに追いかける。\n- 敵は画面外周囲から登場しプレイヤーに迫ってくる。\n- 敵はかなりの密度で弾を撃ってくるが、プレイヤーを完全に狙うのではなく、ある程度バラけた撃ち方をしてくる。\n- プレイヤーは弾に衝突するとダメージを受ける。\n- プレイヤーはマウスボタンを押すことで、数秒間ほど結界（反射バリア）を展開する。\n- 再び結界を展開するには数秒のクールダウンを経る必要がある。\n- 結界に当たった敵弾は跳ね返される。その時、敵弾の速度は倍増される。\n- 跳ね返された敵弾は敵に対しての当たり判定を持ち、敵を倒すことができる。\n- アートスタイルとしては 64-bit ピクセルアートと古典的な「剣と魔法」ファンタジーを基調とする。\n&quot;,
+  &quot;Info&quot;: &quot;&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetTextAssetContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;instanceID&quot;: 49346
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;Data&quot;: &quot;# MirrorMage Project Overview\n\n## 1. Project Description\nMirrorMage is a 2D top-down \&quot;Survivor-like\&quot; action game where the player controls a mage who survives by reflecting enemy projectiles back at them. Instead of direct attacks, the core mechanic revolves around a timed \&quot;Barrier\&quot; that parries incoming bullets, turning them into high-speed lethal counter-attacks. The project is designed for a frantic, high-intensity experience featuring neon-like 2D visuals and a progression-based upgrade loop.\n\n## 2. Gameplay Flow / User Loop\n1.  **Boot &amp; Initialization**: The game starts in the `Main` scene. The `PlayerController` and `EnemySpawner` initialize, and the `PlayerHUD` binds to the player&#39;s stats.\n2.  **Engagement**: The player moves using the mouse (automatic follow) and activates the barrier with the Left Mouse Button to parry incoming red bullets.\n3.  **Reflect &amp; Destroy**: Parried bullets become yellow reflected projectiles that seek out enemies. Destroyed enemies grant XP.\n4.  **Level Up**: Upon reaching an XP threshold, the game pauses (`Time.timeScale = 0`), and the `LevelUpUI` (UITK) appears, allowing the player to choose between three upgrades (Move Speed, Charge Speed, or Barrier Strength).\n5.  **Scaling**: As the player levels up, the `EnemySpawner` continues to spawn enemies, and the player&#39;s barrier and stats evolve to match the increasing difficulty.\n\n## 3. Architecture\nThe project follows a decoupled, component-based architecture where systems communicate primarily through direct references or Unity&#39;s `OnTriggerEnter2D` events.\n\n### Game Management &amp; Entry Point\nThe project currently uses a single-scene architecture where high-level managers like `EnemySpawner` and `LevelUpUI` exist as persistent or scene-resident objects.\n*   `PlayerController`: Acts as the central hub for player state (Health, XP, Level) and input handling.\n*   `EnemySpawner`: Manages the lifecycle of enemies, calculating off-screen spawn points based on camera bounds.\n\n`Location: Assets/Scripts/`\n\n## 4. Game Systems &amp; Domain Concepts\n\n### Combat &amp; Reflection System\nThe defining system where projectiles change ownership and behavior upon collision with a specific trigger.\n*   `Projectile`: Handles linear movement and collision logic. It has an `isReflected` state that determines if it damages the player or enemies.\n*   `Barrier`: A timed shield that calculates the reflection normal based on the projectile&#39;s impact position relative to the player.\n*   `Reflect()`: A method in `Projectile` that flips the `isReflected` flag, doubles the speed, and reverses direction using `Vector2.Reflect`.\n\n`Location: Assets/Scripts/`\n\n### Enemy System\nA modular enemy behavior system that handles movement, periodic firing, and death sequences.\n*   `Enemy`: Manages AI (follow player), weapon firing (spread shots), and a multi-stage `DeathRoutine` (shake, flash, then spawn effect).\n*   `SelfDestruct`: A utility component used on death effects (like `Flame_Death_Effect`) to clean up the hierarchy after an animation completes.\n\n`Location: Assets/Scripts/`\n\n### Progression &amp; XP System\nA classic RPG-style level-up system integrated with the UI.\n*   `PlayerController`: Stores XP, Level, and thresholds. It triggers the `LevelUpUI` when `currentXP &gt;= xpToNextLevel`.\n*   `LevelUpUI`: Manages the `Time.timeScale` and upgrade selection logic using a UITK-based modal.\n\n`Location: Assets/Scripts/`\n\n## 5. Scene Overview\nThe project currently utilizes a single active scene:\n*   `Main`: Contains the `Player`, `EnemySpawner`, `Main Camera` (with URP Post-Processing), and the `UIDocument` for the HUD and Level-Up screens.\n*   **Post-Processing**: Uses `KinoEight` for a stylized 8-bit/limited-palette color effect and a custom `ColorPulse` shader on the background.\n\n## 6. UI System\nThe project uses **Unity UI Toolkit (UITK)** for all interface elements.\n*   `PlayerHUD`: A persistent overlay that queries `VisualElement` widths (`healthBarFill`, `xpBarFill`) to reflect player stats every `Update`.\n*   `LevelUpUI`: A modal system using `.uxml` and `.uss`. It uses USS classes (e.g., `option-card--hidden`, `option-card--selected`) to drive high-performance UI animations without the standard Animator component.\n*   `CooldownBar`: A separate World-Space Sprite-based UI component for immediate visual feedback on the barrier&#39;s availability.\n\n`Location: Assets/UI/`\n\n## 7. Asset &amp; Data Model\n*   **Prefabs**: Core entities (Player, Enemy, Projectile) are prefabs. The `Enemy` prefab is configured with a `projectilePrefab` and a `deathEffectPrefab`.\n*   **Animations**: Uses the standard `Animator` system for character walking and death effects.\n*   **URP 2D**: The project is built on the Universal Render Pipeline with a 2D Renderer, utilizing `Light2D` for ambient effects and `Global Volume` for post-processing.\n*   **Naming Convention**: Scripts use PascalCase, while private variables follow `_camelCase` with an underscore prefix.\n\n## 8. Notes, Caveats &amp; Gotchas\n*   **Reflection Logic**: The reflection is purely geometric (`Vector2.Reflect`). If the barrier is too small or the projectile is too fast, collision detection might skip frames; ensure \&quot;Continuous\&quot; collision is used on fast projectiles.\n*   **Time Scaling**: Leveling up sets `Time.timeScale = 0`. UI animations in `LevelUpUI` must use `unscaledTime` or `WaitForSecondsRealtime` to function correctly while the game is paused.\n*   **Input**: The project uses the **New Input System** (Package: `com.unity.inputsystem`). Mouse positions are read via `Mouse.current.position`.\n*   **Sprite Direction**: The `PlayerController` and `Enemy` scripts manually flip the `SpriteRenderer.flipX` based on the horizontal movement vector rather than using separate animation clips for left/right.\n&quot;,
+  &quot;Info&quot;: &quot;&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Assessing the Documents&#39; Content</strong></p>
+<p>I&#39;ve just reviewed the project overview documents. MirrorMage, a 2D top-down action game in the Survivor-like genre, caught my attention. The core mechanics center on reflection, with a timed barrier for parrying projectiles. Visual style is also something to look at later. I&#39;m keen to delve deeper into the game&#39;s reflection-based combat system.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Understanding the Game Design</strong></p>
+<p>I&#39;ve digested the central game design elements, namely the reflection mechanic and the 2D top-down perspective. The Survivor-like genre is also of note. I&#39;ve noted the pixel art style and the diagonal character movement. I am ready to explore the enemy spawning and projectile handling.</p>
+</details>
+
+<p>I translated the user&#39;s request and the assistant&#39;s response.</p>
+<p>Here is the complete translated Markdown:</p>
+<hr>
+<h2>🧑 User</h2>
+<p>I would like to adjust the enemy&#39;s behavior. Currently it always chases the player, but please change it as follows:</p>
+<ul>
+<li>Save the direction to the player as a vector</li>
+<li>Move in the vector direction until firing</li>
+<li>Stop, wait 0.3 seconds, fire, then wait 0.3 seconds</li>
+<li>Repeat from the beginning</li>
+</ul>
+<p>Also, please add a slight random element to the firing interval.</p>
+<h2>🤖 Assistant</h2>
+<p>I have changed the enemy&#39;s behavior to repeat the specified &quot;move → stop → fire → stop&quot; cycle pattern.</p>
+<h3>Changes Made:</h3>
+<ol>
+<li><strong>Movement Pattern Change</strong>:<ul>
+<li>The movement vector is calculated from the player&#39;s current position once and stored, and the enemy then moves in that direction for a fixed period of time.</li>
+<li>Instead of constantly chasing the player, the enemy now charges straight in the direction it was heading when movement began.</li>
+</ul>
+</li>
+<li><strong>Sequence Implementation</strong>:<ul>
+<li>A coroutine called <code>BehaviorRoutine</code> was introduced to repeat the following cycle:<ol>
+<li>Determine the movement vector and update the sprite&#39;s facing direction.</li>
+<li>Move for the duration of the firing interval minus the 0.3-second wait times before and after firing.</li>
+<li>Stop and wait 0.3 seconds.</li>
+<li>Fire (<code>Shoot()</code>).</li>
+<li>Wait another 0.3 seconds.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Adding a Random Element</strong>:<ul>
+<li>Using the Inspector&#39;s <code>Fire Rate</code> (in seconds) as a baseline, a random variation of ±20% is applied so that each enemy&#39;s firing timing is slightly offset.</li>
+</ul>
+</li>
+</ol>
+<h3>Key Parts of <code>Enemy.cs</code> After Implementation:</h3>
+<pre><code class="language-csharp">private IEnumerator BehaviorRoutine()
+{
+    while (!_isDying)
+    {
+        if (_player == null) { yield return new WaitForSeconds(0.5f); continue; }
+
+        // プレイヤの方向をベクトルに保存
+        Vector2 moveDirection = (_player.position - transform.position).normalized;
+
+        // 移動方向に基づいてスプライトを反転
+        if (moveDirection.x &gt; 0.05f) _spriteRenderer.flipX = true;
+        else if (moveDirection.x &lt; -0.05f) _spriteRenderer.flipX = false;
+
+        // 若干のランダム要素を加えた射撃間隔（基準値の±20%）
+        float interval = Random.Range(fireRate * 0.8f, fireRate * 1.2f);
+        float moveTime = Mathf.Max(0, interval - 0.6f);
+
+        // 弾を撃つまでの間、ベクトル方向に移動
+        float elapsed = 0f;
+        while (elapsed &lt; moveTime &amp;&amp; !_isDying)
+        {
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (_isDying) yield break;
+
+        // 停止して、0.3 秒待ち
+        yield return new WaitForSeconds(0.3f);
+
+        if (_isDying) yield break;
+
+        // 弾を撃ち
+        Shoot();
+
+        // 0.3 秒待つ
+        yield return new WaitForSeconds(0.3f);
+    }
+}
+</code></pre>
+<p>Compilation errors have been confirmed to be absent. Enemy movement should now be more dynamic and impactful.</p>
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Revising Enemy AI</strong></p>
+<p>I&#39;m currently working on modifying the enemy AI. My plan is to store the player&#39;s direction, then have the enemy move in that direction before firing. A short pause after firing will be implemented to enhance gameplay. I&#39;m focusing on the movement and firing logic right now.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Analyzing Enemy Script Location</strong></p>
+<p>I&#39;ve begun my task, starting with locating the <code>Enemy</code> script within the project directory. Based on the documentation, I&#39;ve found it at <code>Assets/Scripts/</code>, and I&#39;m ready to proceed with Step 2, analyzing the existing movement and firing mechanisms. This will inform how I&#39;ll best implement the new, state-based behavior.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.FindProjectAssets (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;query&quot;: &quot;Enemy t:MonoScript&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;Hierarchy&quot;: &quot;Assets\n└── Scripts\n    ├── Enemy.cs (InstanceID: 45308, Type: MonoScript)\n    └── EnemySpawner.cs (InstanceID: 41110, Type: MonoScript)\n&quot;,
+  &quot;Info&quot;: &quot;&quot;,
+  &quot;ResponseGuidance&quot;: &quot;&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Reading the Enemy Script</strong></p>
+<p>I&#39;m currently reviewing the <code>Enemy.cs</code> script located in <code>Assets/Scripts/</code>. My goal is to grasp its current functionalities. I&#39;ll need to understand its structure before proceeding.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetFileContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class Enemy : MonoBehaviour
+{
+    public float moveSpeed = 2f;
+    public GameObject projectilePrefab;
+    public float fireRate = 2f;
+    public float spreadAngle = 45f;
+    public int bulletCount = 3;
+    public float xpValue = 25f;
+
+    public GameObject deathEffectPrefab;
+
+    private Transform _player;
+    private float _fireTimer;
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+    private bool _isDying = false;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponent&lt;SpriteRenderer&gt;();
+        _animator = GetComponent&lt;Animator&gt;();
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag(&quot;Player&quot;);
+        if (playerObj != null) _player = playerObj.transform;
+        _fireTimer = fireRate;
+    }
+
+    public void Die()
+    {
+        if (_isDying) return;
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        _isDying = true;
+
+        // 1. Disable interaction
+        Collider2D col = GetComponent&lt;Collider2D&gt;();
+        if (col != null) col.enabled = false;
+
+        // 2. Pre-death effect: Flash and Shake
+        Color originalColor = (_spriteRenderer != null) ? _spriteRenderer.color : Color.white;
+        Vector3 startPos = transform.position;
+        float elapsed = 0f;
+        float duration = 0.12f;
+        float shakeMagnitude = 0.15f;
+        float flashInterval = 0.03f; // Fast flickering
+        float lastFlashTime = 0f;
+        bool isWhite = false;
+
+        while (elapsed &lt; duration)
+        {
+            elapsed += Time.deltaTime;
+            
+            // Random shake offset
+            float offsetX = Random.Range(-shakeMagnitude, shakeMagnitude);
+            float offsetY = Random.Range(-shakeMagnitude, shakeMagnitude);
+            transform.position = startPos + new Vector3(offsetX, offsetY, 0);
+
+            // Flicker flash effect
+            if (elapsed - lastFlashTime &gt; flashInterval)
+            {
+                isWhite = !isWhite;
+                // Use intense white (HDR-like) for the flash
+                if (_spriteRenderer != null)
+                {
+                    _spriteRenderer.color = isWhite ? new Color(2f, 2f, 2f, 1f) : originalColor;
+                }
+                lastFlashTime = elapsed;
+            }
+            
+            yield return null;
+        }
+
+        // Restore color before destruction (for the fire effect position reference)
+        if (_spriteRenderer != null) _spriteRenderer.color = originalColor;
+
+        if (_player != null)
+        {
+            PlayerController pc = _player.GetComponent&lt;PlayerController&gt;();
+            if (pc != null) pc.GainXP(xpValue);
+        }
+
+        // 3. Spawn the fire animation and finally destroy
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, startPos, Quaternion.identity);
+        }
+        Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (_isDying) return;
+
+        if (_player != null)
+        {
+            Vector2 direction = (_player.position - transform.position).normalized;
+            transform.Translate(direction * moveSpeed * Time.deltaTime);
+
+            // Sprite flipping logic based on movement direction
+            if (direction.x &gt; 0.05f) _spriteRenderer.flipX = true; // Faces right
+            else if (direction.x &lt; -0.05f) _spriteRenderer.flipX = false; // Faces left (Southwest)
+
+            _fireTimer -= Time.deltaTime;
+            if (_fireTimer &lt;= 0)
+            {
+                Shoot();
+                _fireTimer = fireRate;
+            }
+        }
+    }
+
+    void Shoot()
+    {
+        if (projectilePrefab == null || _player == null) return;
+
+        Vector2 baseDir = (_player.position - transform.position).normalized;
+        float startAngle = -spreadAngle / 2f;
+        float angleStep = spreadAngle / (bulletCount - 1);
+
+        for (int i = 0; i &lt; bulletCount; i++)
+        {
+            float angle = startAngle + (angleStep * i);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDir;
+            
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Projectile p = bullet.GetComponent&lt;Projectile&gt;();
+            if (p != null)
+            {
+                p.direction = dir;
+            }
+        }
+    }
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Refining Enemy Behavior</strong></p>
+<p>I&#39;m currently focused on the <code>Enemy</code> script. I&#39;ve begun by updating the firing rate, considering options like <code>minFireRate</code> and <code>maxFireRate</code> or a randomized variance around the existing <code>fireRate</code>. Next, I&#39;ll revise the movement logic.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Revising Movement and Firing</strong></p>
+<p>I&#39;ve revised the core of the <code>Enemy</code> script. The movement and firing are now handled by a Coroutine. This includes calculating the direction to the player and adding randomness to the firing interval. I am currently working on the timing, ensuring it respects the &#39;move to, stop, fire, wait&#39; sequence.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Planning Behavior Logic</strong></p>
+<p>The <code>Enemy</code> script&#39;s coroutine is now drafted. I&#39;ve integrated <code>minFireInterval</code> and <code>maxFireInterval</code> for firing, calculating the movement duration. Also, I&#39;m ensuring <code>_spriteRenderer.flipX</code> responds correctly to movement and managing the <code>_isDying</code> state within the loop. The next step is testing.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Designing Coroutine Structure</strong></p>
+<p>I&#39;m now deep in the core logic of the <code>BehaviorRoutine</code>. I&#39;ve implemented the direction calculation, movement, pauses before and after firing, and the shooting itself. I&#39;m storing the direction vector at the start of each cycle. The key is in calculating <code>moveDuration</code> correctly, accounting for the 0.3-second pauses before and after shooting. I&#39;m also ensuring the sprite&#39;s <code>flipX</code> reflects the movement direction. My next step will be testing this implementation.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Coding the Coroutine</strong></p>
+<p>I&#39;m now fully coding the <code>BehaviorRoutine</code>. I&#39;ve added the logic for calculating <code>moveDuration</code>, handling <code>flipX</code>, and determining a random fire interval. The movement is driven by the pre-calculated direction vector, and the script now respects the specified sequence of movement, pauses, and firing. I will thoroughly test and debug.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Implementing the Behavior Routine</strong></p>
+<p>I&#39;m translating the specification into code. I&#39;ve now added the <code>BehaviorRoutine</code> Coroutine, including logic for direction storage, <code>flipX</code>, and determining a movement duration based on <code>minFireInterval</code> and <code>maxFireInterval</code>. I am now ready to test the changes to confirm that the enemy moves, pauses, and fires correctly.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Coding the Behavior Sequence</strong></p>
+<p>I&#39;m now fully immersed in the core logic. I&#39;ve integrated <code>moveDir</code>, the calculation of <code>moveTime</code> using <code>minFireInterval</code> and <code>maxFireInterval</code>, and the sprite flipping. The enemy will move, pause, and fire, all while using the stored direction to the player for the movement phase. Next, I&#39;ll test the new routine.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Integrating the Changes</strong></p>
+<p>The code is now updated. I&#39;ve implemented the <code>BehaviorRoutine</code> coroutine, which calculates and stores the player&#39;s direction, sets movement durations using <code>minFireInterval</code> and <code>maxFireInterval</code>, and includes the correct pausing and firing sequences. The <code>_spriteRenderer.flipX</code> is handled, and I&#39;ve also verified <code>Shoot()</code> uses the correct aiming logic. I also added variables: <code>minFireInterval</code> and <code>maxFireInterval</code>. The next step is testing.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Adapting the Fire Rate</strong></p>
+<p>I&#39;ve refactored the script to introduce <code>minFireInterval</code> and <code>maxFireInterval</code> for randomness. Also, I decided to preserve the stored direction for movement and aim the projectile at the player when firing. The next step is to test the integration.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetDependency (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;,
+  &quot;queryType&quot;: &quot;get_edges&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;count&quot;: 3,
+  &quot;edges&quot;: [
+    {
+      &quot;src_id&quot;: &quot;scene_Assets_Main_unity&quot;,
+      &quot;dst_id&quot;: &quot;asset_Assets_Scripts_Enemy_cs&quot;,
+      &quot;relation_type&quot;: &quot;dependsOn&quot;,
+      &quot;src_type&quot;: &quot;asset&quot;,
+      &quot;dst_type&quot;: &quot;asset&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;
+    },
+    {
+      &quot;src_id&quot;: &quot;asset_Assets_Prefabs_Enemy_prefab&quot;,
+      &quot;dst_id&quot;: &quot;asset_Assets_Scripts_Enemy_cs&quot;,
+      &quot;relation_type&quot;: &quot;dependsOn&quot;,
+      &quot;src_type&quot;: &quot;asset&quot;,
+      &quot;dst_type&quot;: &quot;asset&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;
+    },
+    {
+      &quot;src_id&quot;: &quot;assetType_MonoScript&quot;,
+      &quot;dst_id&quot;: &quot;asset_Assets_Scripts_Enemy_cs&quot;,
+      &quot;relation_type&quot;: &quot;includes&quot;,
+      &quot;src_type&quot;: &quot;assetType&quot;,
+      &quot;dst_type&quot;: &quot;asset&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;
+    }
+  ]
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Analyzing Script Variables</strong></p>
+<p>I&#39;m focused on the <code>Enemy.prefab</code> script. I&#39;ve pinpointed <code>fireRate</code> as a potential area for modification. Now I&#39;m wrestling with whether to rename it to <code>fireInterval</code> or introduce variance while keeping the existing name. The current use of <code>fireRate</code> as an interval feels inconsistent.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Considering Routine Implementation</strong></p>
+<p>I&#39;ve refactored the enemy&#39;s shooting and movement within a <code>BehaviorRoutine</code> coroutine, aiming for more controlled behavior. I&#39;m now integrating randomness into the firing interval using <code>Random.Range</code> for variability, making the firing less predictable. I&#39;m also addressing the move speed and direction within the coroutine.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Confirming Code Refactoring</strong></p>
+<p>Now, I&#39;m verifying the changes to the <code>Enemy.prefab</code> script, specifically the removal of the <code>Update</code> method and ensuring the <code>BehaviorRoutine</code> maintains functionality. I&#39;ve confirmed that the logic, including sprite flipping and firing, is successfully incorporated into the coroutine, allowing for controlled, randomized behavior. The total cycle time is as intended. I&#39;ve also checked the <code>Update</code> method, to ensure there&#39;s no code to move.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Confirming Script Modifications</strong></p>
+<p>I&#39;m now fully immersed in the changes. I&#39;ve removed the <code>Update</code> method entirely, confident that the <code>BehaviorRoutine</code> handles everything. I&#39;ve integrated sprite flipping within the coroutine. I&#39;ve also refactored <code>transform.Translate</code> calls to <code>transform.position</code>. Before integrating these changes, I&#39;m checking the use of <code>transform.Translate</code>. I&#39;m starting the coroutine in <code>Start()</code>. I&#39;ve verified the <code>_isDying</code> flag ensures proper behavior.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Refining Code Integration</strong></p>
+<p>I&#39;m now fully immersed in the changes. I&#39;ve removed the <code>Update</code> method entirely, confident that the <code>BehaviorRoutine</code> handles everything, and checking its integration. I&#39;m starting the coroutine in <code>Start()</code>. I&#39;ve verified the <code>_isDying</code> flag and <code>StopAllCoroutines()</code> ensure proper behavior.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Integrating Behavior Logic</strong></p>
+<p>I&#39;m now satisfied with the refactoring and fully integrating the changes. I&#39;ve ensured the enemy logic is entirely within the <code>BehaviorRoutine</code> coroutine. I&#39;ve verified the direction is set, and the enemy sprite flips as expected. I&#39;m confident that the core functionality, including sprite flipping, movement, and firing, is successfully handled within the coroutine. I&#39;ve checked the start conditions and the dying conditions. Now I&#39;ll check the test in the current environment.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Evaluating Final Implementation</strong></p>
+<p>I&#39;ve finished integrating the <code>BehaviorRoutine</code> into <code>Enemy.prefab</code>. I&#39;ve verified the direction is set correctly for movement and sprite flipping. The enemy will now move, pause, and fire with randomized intervals and direction, all within the coroutine. I&#39;m satisfied the entire logic, including death handling, is now encapsulated in the <code>BehaviorRoutine</code>. All <code>Update</code> method content is gone. Now I&#39;ll do a final run.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Verifying Implementation Logic</strong></p>
+<p>I&#39;m verifying that the enemy&#39;s logic is fully and correctly implemented within the <code>BehaviorRoutine</code>, which now encompasses movement, sprite flipping, and firing, along with death handling. I&#39;m satisfied that everything is contained within the coroutine. Now I&#39;ll do a final run.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Verifying Code Logic</strong></p>
+<p>I&#39;m now fully immersed in the changes. I&#39;ve removed the <code>Update</code> method entirely, confident that the <code>BehaviorRoutine</code> handles everything. I&#39;ve integrated the flipX operation within the coroutine. I&#39;m starting the coroutine in <code>Start()</code>. I&#39;ve verified the <code>_isDying</code> flag and <code>StopAllCoroutines()</code> ensure proper behavior. Before integrating these changes, I&#39;m checking <code>transform.Translate</code>. I&#39;m starting the coroutine in <code>Start()</code>. Now I&#39;ll do a final run.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.CodeEdit (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;oldString&quot;: &quot;    private float _fireTimer;\n    private SpriteRenderer _spriteRenderer;\n    private Animator _animator;\n    private bool _isDying = false;\n\n    void Start()\n    {\n        _spriteRenderer = GetComponent&lt;SpriteRenderer&gt;();\n        _animator = GetComponent&lt;Animator&gt;();\n\n        GameObject playerObj = GameObject.FindGameObjectWithTag(\&quot;Player\&quot;);\n        if (playerObj != null) _player = playerObj.transform;\n        _fireTimer = fireRate;\n    }\n\n    public void Die()\n    {\n        if (_isDying) return;\n        StartCoroutine(DeathRoutine());\n    }\n\n    private IEnumerator DeathRoutine()\n    {\n        _isDying = true;\n&quot;,
+  &quot;newString&quot;: &quot;    private SpriteRenderer _spriteRenderer;\n    private Animator _animator;\n    private bool _isDying = false;\n\n    void Start()\n    {\n        _spriteRenderer = GetComponent&lt;SpriteRenderer&gt;();\n        _animator = GetComponent&lt;Animator&gt;();\n\n        GameObject playerObj = GameObject.FindGameObjectWithTag(\&quot;Player\&quot;);\n        if (playerObj != null) _player = playerObj.transform;\n        \n        StartCoroutine(BehaviorRoutine());\n    }\n\n    public void Die()\n    {\n        if (_isDying) return;\n        StopAllCoroutines();\n        StartCoroutine(DeathRoutine());\n    }\n\n    private IEnumerator BehaviorRoutine()\n    {\n        while (!_isDying)\n        {\n            if (_player == null)\n            {\n                yield return new WaitForSeconds(0.5f);\n                continue;\n            }\n\n            // Store player direction in a vector\n            Vector2 moveDirection = (_player.position - transform.position).normalized;\n\n            // Update sprite flipping based on movement direction\n            if (moveDirection.x &gt; 0.05f) _spriteRenderer.flipX = true;\n            else if (moveDirection.x &lt; -0.05f) _spriteRenderer.flipX = false;\n\n            // Randomized firing interval (+/- 20% variance)\n            float interval = Random.Range(fireRate * 0.8f, fireRate * 1.2f);\n            float moveTime = Mathf.Max(0, interval - 0.6f);\n\n            // Move in the stored direction until firing phase starts\n            float elapsed = 0f;\n            while (elapsed &lt; moveTime &amp;&amp; !_isDying)\n            {\n                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);\n                elapsed += Time.deltaTime;\n                yield return null;\n            }\n\n            if (_isDying) yield break;\n\n            // Stop and wait 0.3s\n            yield return new WaitForSeconds(0.3f);\n\n            if (_isDying) yield break;\n\n            // Shoot\n            Shoot();\n\n            // Wait another 0.3s\n            yield return new WaitForSeconds(0.3f);\n        }\n    }\n\n    private IEnumerator DeathRoutine()\n    {\n        _isDying = true;\n&quot;,
+  &quot;description&quot;: &quot;Modify Enemy behavior to follow a move-stop-shoot-stop pattern with randomized intervals and stored direction for movement.&quot;,
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;result&quot;: &quot;The file was successfully edited and saved at Enemy.cs, but it now contains compilation errors that need to be fixed.&quot;,
+  &quot;compilationOutput&quot;: &quot;Assets/Scripts/Enemy.cs(155,13): error Assets/Scripts/Enemy.cs(155,13): error CS0103: The name &#39;_fireTimer&#39; does not exist in the current context\nAssets/Scripts/Enemy.cs(156,17): error Assets/Scripts/Enemy.cs(156,17): error CS0103: The name &#39;_fireTimer&#39; does not exist in the current context\nAssets/Scripts/Enemy.cs(159,17): error Assets/Scripts/Enemy.cs(159,17): error CS0103: The name &#39;_fireTimer&#39; does not exist in the current context&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.CodeEdit (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;,
+  &quot;oldString&quot;: &quot;    void Update()\n    {\n        if (_isDying) return;\n\n        if (_player != null)\n        {\n            Vector2 direction = (_player.position - transform.position).normalized;\n            transform.Translate(direction * moveSpeed * Time.deltaTime);\n\n            // Sprite flipping logic based on movement direction\n            if (direction.x &gt; 0.05f) _spriteRenderer.flipX = true; // Faces right\n            else if (direction.x &lt; -0.05f) _spriteRenderer.flipX = false; // Faces left (Southwest)\n\n            _fireTimer -= Time.deltaTime;\n            if (_fireTimer &lt;= 0)\n            {\n                Shoot();\n                _fireTimer = fireRate;\n            }\n        }\n    }\n&quot;,
+  &quot;description&quot;: &quot;Remove movement and firing logic from Update as it is now handled by BehaviorRoutine coroutine.&quot;,
+  &quot;newString&quot;: &quot;    void Update()\n    {\n        // Movement and firing logic moved to BehaviorRoutine coroutine\n    }\n&quot;
+}
+</code></pre>
+<p><strong>エラー</strong></p>
+<pre><code>The specified oldString was not found in the file. Ensure the text matches exactly, including whitespace and indentation.
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Fixing Code Sequence Errors</strong></p>
+<p>I&#39;ve realized a critical flaw in my approach. The initial replacement, while succeeding in one aspect, created an issue by removing a needed field. The subsequent failure to remove the function then led to an error. I should have ensured both changes were atomic. The error stems from the missing field.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Verifying File Consistency</strong></p>
+<p>I&#39;m now revisiting the file content to confirm the exact <code>Update</code> function. My prior attempt to modify it may have failed due to a discrepancy between the intended <code>oldString</code> and the actual code. I will ensure the target code block is precise before I re-attempt the removal. I&#39;m focusing on the <code>_fireTimer</code> field specifically.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetFileContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class Enemy : MonoBehaviour
+{
+    public float moveSpeed = 2f;
+    public GameObject projectilePrefab;
+    public float fireRate = 2f;
+    public float spreadAngle = 45f;
+    public int bulletCount = 3;
+    public float xpValue = 25f;
+
+    public GameObject deathEffectPrefab;
+
+    private Transform _player;
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+    private bool _isDying = false;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponent&lt;SpriteRenderer&gt;();
+        _animator = GetComponent&lt;Animator&gt;();
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag(&quot;Player&quot;);
+        if (playerObj != null) _player = playerObj.transform;
+        
+        StartCoroutine(BehaviorRoutine());
+    }
+
+    public void Die()
+    {
+        if (_isDying) return;
+        StopAllCoroutines();
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator BehaviorRoutine()
+    {
+        while (!_isDying)
+        {
+            if (_player == null)
+            {
+                yield return new WaitForSeconds(0.5f);
+                continue;
+            }
+
+            // Store player direction in a vector
+            Vector2 moveDirection = (_player.position - transform.position).normalized;
+
+            // Update sprite flipping based on movement direction
+            if (moveDirection.x &gt; 0.05f) _spriteRenderer.flipX = true;
+            else if (moveDirection.x &lt; -0.05f) _spriteRenderer.flipX = false;
+
+            // Randomized firing interval (+/- 20% variance)
+            float interval = Random.Range(fireRate * 0.8f, fireRate * 1.2f);
+            float moveTime = Mathf.Max(0, interval - 0.6f);
+
+            // Move in the stored direction until firing phase starts
+            float elapsed = 0f;
+            while (elapsed &lt; moveTime &amp;&amp; !_isDying)
+            {
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            if (_isDying) yield break;
+
+            // Stop and wait 0.3s
+            yield return new WaitForSeconds(0.3f);
+
+            if (_isDying) yield break;
+
+            // Shoot
+            Shoot();
+
+            // Wait another 0.3s
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        _isDying = true;
+
+        // 1. Disable interaction
+        Collider2D col = GetComponent&lt;Collider2D&gt;();
+        if (col != null) col.enabled = false;
+
+        // 2. Pre-death effect: Flash and Shake
+        Color originalColor = (_spriteRenderer != null) ? _spriteRenderer.color : Color.white;
+        Vector3 startPos = transform.position;
+        float elapsed = 0f;
+        float duration = 0.12f;
+        float shakeMagnitude = 0.15f;
+        float flashInterval = 0.03f; // Fast flickering
+        float lastFlashTime = 0f;
+        bool isWhite = false;
+
+        while (elapsed &lt; duration)
+        {
+            elapsed += Time.deltaTime;
+            
+            // Random shake offset
+            float offsetX = Random.Range(-shakeMagnitude, shakeMagnitude);
+            float offsetY = Random.Range(-shakeMagnitude, shakeMagnitude);
+            transform.position = startPos + new Vector3(offsetX, offsetY, 0);
+
+            // Flicker flash effect
+            if (elapsed - lastFlashTime &gt; flashInterval)
+            {
+                isWhite = !isWhite;
+                // Use intense white (HDR-like) for the flash
+                if (_spriteRenderer != null)
+                {
+                    _spriteRenderer.color = isWhite ? new Color(2f, 2f, 2f, 1f) : originalColor;
+                }
+                lastFlashTime = elapsed;
+            }
+            
+            yield return null;
+        }
+
+        // Restore color before destruction (for the fire effect position reference)
+        if (_spriteRenderer != null) _spriteRenderer.color = originalColor;
+
+        if (_player != null)
+        {
+            PlayerController pc = _player.GetComponent&lt;PlayerController&gt;();
+            if (pc != null) pc.GainXP(xpValue);
+        }
+
+        // 3. Spawn the fire animation and finally destroy
+        if (deathEffectPrefab != null)
+        {
+            Instantiate(deathEffectPrefab, startPos, Quaternion.identity);
+        }
+        Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (_isDying) return;
+
+        if (_player != null)
+        {
+            Vector2 direction = (_player.position - transform.position).normalized;
+            transform.Translate(direction * moveSpeed * Time.deltaTime);
+
+            // Sprite flipping logic based on movement direction
+            if (direction.x &gt; 0.05f) _spriteRenderer.flipX = true; // Faces right
+            else if (direction.x &lt; -0.05f) _spriteRenderer.flipX = false; // Faces left (Southwest)
+
+            _fireTimer -= Time.deltaTime;
+            if (_fireTimer &lt;= 0)
+            {
+                Shoot();
+                _fireTimer = fireRate;
+            }
+        }
+    }
+
+    void Shoot()
+    {
+        if (projectilePrefab == null || _player == null) return;
+
+        Vector2 baseDir = (_player.position - transform.position).normalized;
+        float startAngle = -spreadAngle / 2f;
+        float angleStep = spreadAngle / (bulletCount - 1);
+
+        for (int i = 0; i &lt; bulletCount; i++)
+        {
+            float angle = startAngle + (angleStep * i);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDir;
+            
+            GameObject bullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Projectile p = bullet.GetComponent&lt;Projectile&gt;();
+            if (p != null)
+            {
+                p.direction = dir;
+            }
+        }
+    }
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Revising the Update Method</strong></p>
+<p>I&#39;m currently working on refactoring the <code>Update</code> method to remove unnecessary logic. My goal is to streamline its functionality and improve readability by eliminating the conditional death check and focusing solely on player interaction. It&#39;s a significant refactor to ensure proper encapsulation and a clear separation of concerns.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Deconstructing Update Method</strong></p>
+<p>I&#39;m now zeroing in on the Update method&#39;s content. I&#39;ve pinpointed the exact lines to modify, specifically from 144 to 164. My plan is to remove the _isDying check and player interactions to a separate place. I&#39;ll need to figure out where to move the shooting logic, as well.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Analyzing the Code Blocks</strong></p>
+<p>I&#39;m now carefully examining the code snippet, specifically lines 144-164 within <code>Enemy.cs</code>. I&#39;m verifying the provided code against the current implementation, to correctly extract the relevant lines and eliminate the dying check and movement logic. A crucial step involves addressing the potential error I spotted previously, dealing with _fireTimer.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.CodeEdit (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;,
+  &quot;oldString&quot;: &quot;    void Update()\n    {\n        if (_isDying) return;\n\n        if (_player != null)\n        {\n            Vector2 direction = (_player.position - transform.position).normalized;\n            transform.Translate(direction * moveSpeed * Time.deltaTime);\n\n            // Sprite flipping logic based on movement direction\n            if (direction.x &gt; 0.05f) _spriteRenderer.flipX = true; // Faces right\n            else if (direction.x &lt; -0.05f) _spriteRenderer.flipX = false; // Faces left (Southwest)\n\n            _fireTimer -= Time.deltaTime;\n            if (_fireTimer &lt;= 0)\n            {\n                Shoot();\n                _fireTimer = fireRate;\n            }\n        }\n    }\n&quot;,
+  &quot;newString&quot;: &quot;    void Update()\n    {\n        // Movement and firing logic moved to BehaviorRoutine coroutine\n    }\n&quot;,
+  &quot;description&quot;: &quot;Remove movement and firing logic from Update as it is now handled by BehaviorRoutine coroutine.&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;result&quot;: &quot;The file was successfully edited and saved at Enemy.cs, and it compiled successfully.&quot;,
+  &quot;compilationOutput&quot;: &quot;&quot;
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Considering Implementation Details</strong></p>
+<p>I&#39;ve confirmed the script compiles successfully. Now, I&#39;m checking if the <code>fireRate</code> in the prefab needs adjusting. Fortunately, the script&#39;s default <code>fireRate</code> is <code>2f</code>, and any prefab-specific value will function as a base for the randomized interval, so all is well.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Refining the Randomization</strong></p>
+<p>My focus has shifted to the <code>fireRate</code> randomization. I’ve verified the requirements for the bullet firing interval, confirming my implementation of <code>Random.Range(fireRate * 0.8f, fireRate * 1.2f)</code>. I also reviewed the timing logic and ensured the calculations, particularly <code>moveTime = Mathf.Max(0, interval - 0.6f);</code>, are accurate. Finally, I will check the console log to verify that everything works as expected.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetConsoleLogs (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;logTypes&quot;: &quot;error,warning&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;logs&quot;: [],
+  &quot;totalCount&quot;: 0,
+  &quot;errorCount&quot;: 0,
+  &quot;warningCount&quot;: 0
+}
+</code></pre>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Notifying User of Success</strong></p>
+<p>I&#39;ve just finished the modifications and verified the logs, everything is clean. I&#39;m preparing to inform the user of the successful outcome and the resolution of the initial query.</p>
+</details>
+
+<h2>🧑 User</h2>
+<p>Looks great! However, it looks unnatural when the character sometimes shoots bullets from their back, so could you make it so that the sprite&#39;s facing direction is also updated at the moment of shooting?</p>
+<h2>🤖 Assistant</h2>
+<p>I added a process to update the sprite&#39;s facing direction toward the player before the pre-shoot wait (0.3 seconds).
+This ensures that the facing direction is properly reflected not only while moving, but also at the moment of stopping and shooting.</p>
+<pre><code class="language-csharp">if (_isDying) yield break;
+
+// 弾を撃つ前に、プレイヤーの方を向くようにスプライトの向きを更新
+Vector2 aimDirection = (_player.position - transform.position).normalized;
+if (aimDirection.x &gt; 0.05f) _spriteRenderer.flipX = true;
+else if (aimDirection.x &lt; -0.05f) _spriteRenderer.flipX = false;
+
+// 停止して、0.3 秒待ち
+yield return new WaitForSeconds(0.3f);
+</code></pre>
+<p>I have confirmed that there are no compilation errors.</p>
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Refining Projectile Aim</strong></p>
+<p>I&#39;ve been drilling down on the timing issue with the enemy&#39;s projectile firing. My current focus is integrating the sprite&#39;s direction update directly before the projectile spawns. I&#39;m close to identifying the exact point in the code where this needs to happen for the most seamless visual effect.</p>
+</details>
+
+<details>
+<summary>💭 Thinking</summary>
+
+<p><strong>Confirming Firing Logic</strong></p>
+<p>I&#39;m now zeroing in on the precise location within <code>BehaviorRoutine</code> to insert the sprite flip logic. I&#39;ve re-examined <code>Enemy.cs</code> to refresh my context, and I&#39;m confident I can pinpoint the <code>Shoot()</code> call. I&#39;m double-checking the right/southeast versus left/southwest directional logic to ensure the <code>flipX</code> property is correctly implemented before the projectile launch.</p>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.CodeEdit (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;newString&quot;: &quot;            if (_isDying) yield break;\n\n            // Update sprite orientation to face the player before shooting\n            Vector2 aimDirection = (_player.position - transform.position).normalized;\n            if (aimDirection.x &gt; 0.05f) _spriteRenderer.flipX = true;\n            else if (aimDirection.x &lt; -0.05f) _spriteRenderer.flipX = false;\n\n            // Stop and wait 0.3s\n            yield return new WaitForSeconds(0.3f);\n&quot;,
+  &quot;description&quot;: &quot;Update sprite orientation right before shooting to ensure the enemy faces the player.&quot;,
+  &quot;filePath&quot;: &quot;Assets/Scripts/Enemy.cs&quot;,
+  &quot;oldString&quot;: &quot;            if (_isDying) yield break;\n\n            // Stop and wait 0.3s\n            yield return new WaitForSeconds(0.3f);\n&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>{
+  &quot;result&quot;: &quot;The file was successfully edited and saved at Enemy.cs, and it compiled successfully.&quot;,
+  &quot;compilationOutput&quot;: &quot;&quot;
+}
+</code></pre>
+</details>

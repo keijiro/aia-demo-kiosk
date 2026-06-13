@@ -27,8 +27,9 @@ def derived_title(fn):
     return m.group(3).replace("_", " ") if m else fn
 
 
-def main(dirpath):
-    tpath = os.path.join(dirpath, "titles.json")
+def main(dirpath, tpath=None):
+    if tpath is None:
+        tpath = os.path.join(dirpath, "titles.json")
     titles = json.load(open(tpath, encoding="utf-8")) if os.path.exists(tpath) else {}
 
     entries = []
@@ -58,7 +59,7 @@ def main(dirpath):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("usage: apply-titles.py <dir>")
+    if len(sys.argv) not in (2, 3):
+        print("usage: apply-titles.py <dir> [titles.json path]")
         sys.exit(1)
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) == 3 else None)

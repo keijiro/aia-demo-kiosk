@@ -15,7 +15,12 @@
   var root = document.querySelector("#prompt-log");
   if (!root) return;
 
-  var dir = root.dataset.promptsDir;
+  var base = root.dataset.promptsDir;
+  var lang = (function () {
+    var l = new URLSearchParams(location.search).get("lang");
+    return l === "ja" || l === "ko" || l === "en" ? l : "en";
+  })();
+  var dir = base + "/" + lang; // resolved/committed in loadIndex()
   var listEl = root.querySelector("#prompt-log-list");
   var contentEl = root.querySelector("#prompt-log-content");
   var scroller = contentEl.closest(".overflow-y-auto") || contentEl;
@@ -91,11 +96,22 @@
     return btn;
   }
 
-  fetch(dir + "/index.json")
-    .then(function (r) {
+  // Load the language index; fall back to ja if the chosen language isn't built.
+  function loadIndex(d, isFallback) {
+    return fetch(d + "/index.json").then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
+      dir = d; // commit the working dir that select() fetches from
       return r.json();
-    })
+    }).catch(function (err) {
+      if (!isFallback && d !== base + "/ja") {
+        console.warn("prompt-log: '" + lang + "' unavailable, falling back to ja");
+        return loadIndex(base + "/ja", true);
+      }
+      throw err;
+    });
+  }
+
+  loadIndex(dir)
     .then(function (items) {
       // index.json entries may be plain filenames or { file, title } objects;
       // an explicit title (authored in titles.json) overrides the filename one.

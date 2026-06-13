@@ -1,0 +1,42 @@
+[
+  {
+    "file": "20260529-1516-Unity_Project_Overview_and_Details-ae049454.html",
+    "title": "자차 조작 프로토타입 구현"
+  },
+  {
+    "file": "20260530-1637-Unity_Project_Handoff_Document_Review-cb88226b.html",
+    "title": "드리프트 동작 재구현 (거리 구속)"
+  },
+  {
+    "file": "20260531-1105-Unity_Infinite_Terrain_System_Overview-a95b72cf.html",
+    "title": "무한 지형 버텍스 컬러 채색"
+  },
+  {
+    "file": "20260531-1447-Implementing_Patrolling_Drone_Enemy_AI-7081c0b1.html",
+    "title": "적 드론 AI 및 데미지 처리 구현"
+  },
+  {
+    "file": "20260531-1843-Fixing_Unity_Tire_Smoke_Errors-3a7bfd64.html",
+    "title": "타이어 연기 이펙트 수정"
+  },
+  {
+    "file": "20260531-2046-Unity_Lock-on_Camera_Control_Logic-1f3613a3.html",
+    "title": "록온 카메라 파라미터 조정"
+  },
+  {
+    "file": "20260531-2116-Adjusting_Lock-on_Drift_Inspector_Properties-67f2e5d1.html",
+    "title": "록온 드리프트 동작 조정"
+  },
+  {
+    "file": "20260601-1628-Designing_Time_Based_Difficulty_Curves-0e1579f0.html",
+    "title": "시간 경과에 따른 난이도 곡선 구현"
+  },
+  {
+    "file": "20260602-1133-Dynamic_shader_and_material_impact-2353111c.html",
+    "title": "동적 머티리얼 생성 에셋화"
+  },
+  {
+    "file": "20260602-1519-Listing_GLB_files_in_Unity-d523ab43.html",
+    "title": "GLB 텍스처 외부 에셋화"
+  }
+]

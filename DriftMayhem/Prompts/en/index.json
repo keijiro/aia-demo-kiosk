@@ -1,0 +1,42 @@
+[
+  {
+    "file": "20260529-1516-Unity_Project_Overview_and_Details-ae049454.html",
+    "title": "Player Vehicle Control Prototype Implementation"
+  },
+  {
+    "file": "20260530-1637-Unity_Project_Handoff_Document_Review-cb88226b.html",
+    "title": "Drift Behavior Reimplementation (Distance Constraint)"
+  },
+  {
+    "file": "20260531-1105-Unity_Infinite_Terrain_System_Overview-a95b72cf.html",
+    "title": "Infinite Terrain Vertex Color Painting"
+  },
+  {
+    "file": "20260531-1447-Implementing_Patrolling_Drone_Enemy_AI-7081c0b1.html",
+    "title": "Enemy Drone AI and Damage Handling Implementation"
+  },
+  {
+    "file": "20260531-1843-Fixing_Unity_Tire_Smoke_Errors-3a7bfd64.html",
+    "title": "Tire Smoke Effect Fix"
+  },
+  {
+    "file": "20260531-2046-Unity_Lock-on_Camera_Control_Logic-1f3613a3.html",
+    "title": "Lock-on Camera Parameter Tuning"
+  },
+  {
+    "file": "20260531-2116-Adjusting_Lock-on_Drift_Inspector_Properties-67f2e5d1.html",
+    "title": "Lock-on Drift Behavior Adjustment"
+  },
+  {
+    "file": "20260601-1628-Designing_Time_Based_Difficulty_Curves-0e1579f0.html",
+    "title": "Time-based Difficulty Curve Implementation"
+  },
+  {
+    "file": "20260602-1133-Dynamic_shader_and_material_impact-2353111c.html",
+    "title": "Dynamic Material Generation Asset Conversion"
+  },
+  {
+    "file": "20260602-1519-Listing_GLB_files_in_Unity-d523ab43.html",
+    "title": "GLB Texture External Asset Conversion"
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "file": "20260410-1129-Unity_Project_Planning_in_Japanese-5afae8a2.html",
+    "title": "초기 플랜 수립 및 구현"
+  },
+  {
+    "file": "20260410-1519-Project_Overview_from_Documentation_Files-230833d9.html",
+    "title": "매치 제거 규칙 변경 (연결 소거)"
+  },
+  {
+    "file": "20260410-1552-Analyzing_Project_Status_via_Documentation-572b26c4.html",
+    "title": "블록 스프라이트 생성"
+  },
+  {
+    "file": "20260410-1636-Unity_Project_Documentation_Analysis-d755b618.html",
+    "title": "블록 파괴 애니메이션 생성"
+  },
+  {
+    "file": "20260410-1740-Analyzing_Project_Context_via_Files-f1f8f90f.html",
+    "title": "이미지보드 생성 프롬프트 조정"
+  },
+  {
+    "file": "20260410-2153-Stone_Tablet_Destruction_Sprite_Sheet-acaae952.html",
+    "title": "균열 블록 이미지 생성"
+  },
+  {
+    "file": "20260411-1324-Unity_Project_Documentation_Analysis_Summaries-b369705f.html",
+    "title": "블록 파괴·낙하 연출 구현"
+  },
+  {
+    "file": "20260411-2228-Unity_Particle_Size_Animation_Settings-bdf62358.html",
+    "title": "파티클 크기 애니메이션 조정"
+  },
+  {
+    "file": "20260411-2236-Unity_Screen_Capture_Implementation_Guide-d014e9a2.html",
+    "title": "7x7 그리드 프레임 배치"
+  },
+  {
+    "file": "20260412-1135-Character_Idle_Sprite_Sheet_Setup-a6389794.html",
+    "title": "캐릭터 대기 애니메이션 생성 및 배치"
+  },
+  {
+    "file": "20260412-1519-Analyzing_Unity_Project_Documentation_Files-4ff279ca.html",
+    "title": "몬스터 이미지보드 생성"
+  },
+  {
+    "file": "20260412-2218-Unity_Project_Status_File_Analysis-05beec53.html",
+    "title": "RPG 전투 프로토타입 구현"
+  },
+  {
+    "file": "20260412-2305-AI_Models_for_Spritesheet_Generation-2d4d93a5.html",
+    "title": "스프라이트 생성 모델 선정"
+  },
+  {
+    "file": "20260413-1548-Applying_Custom_Font_to_UI-7593d029.html",
+    "title": "UI 폰트 적용 및 알림 UI 설계"
+  },
+  {
+    "file": "20260413-2202-Unity_Sprite_Shader_Color_Modification-b35a4c9e.html",
+    "title": "스프라이트 발광 셰이더 구현 (MPB)"
+  },
+  {
+    "file": "20260413-2312-Character_Damage_and_Attack_Effects-70e04b88.html",
+    "title": "캐릭터 데미지·공격 연출"
+  },
+  {
+    "file": "20260413-2326-Implementing_Sequential_Animation_Event_Queue-fbc8bde1.html",
+    "title": "연출 큐 순서·대기 조정"
+  },
+  {
+    "file": "20260414-1035-Unity_Sound_Effect_Implementation_Strategy-a795c10a.html",
+    "title": "효과음 추가 구현"
+  },
+  {
+    "file": "20260414-2245-Visual_Feedback_for_Interaction_Rules-c3c04910.html",
+    "title": "최하단 블록 점멸 연출"
+  },
+  {
+    "file": "20260415-1106-Implementing_Action_Effect_Popup_UI-a5c60cd6.html",
+    "title": "데미지 수치 팝업 UI 구현"
+  },
+  {
+    "file": "20260415-1509-Action_Character_Title_Screen_Illustration-fe40d6e6.html",
+    "title": "타이틀 화면 일러스트 생성"
+  },
+  {
+    "file": "20260415-1632-UI_Toolkit_Flashing_Title_Screen-b3cf21e0.html",
+    "title": "타이틀 화면 씬 생성"
+  },
+  {
+    "file": "20260415-2140-Persistent_AudioManager_Additive_Loading_Plan-25c6ca0b.html",
+    "title": "AudioManager 상주화"
+  },
+  {
+    "file": "20260415-2324-Character_Recovery_Soft_Flash_Effects-65ad4f68.html",
+    "title": "회복 플래시 연출 조정"
+  },
+  {
+    "file": "20260416-1816-Fixing_Unity_Script_Name_Mismatch-7d7c708f.html",
+    "title": "스크립트 이름 불일치 경고 수정"
+  },
+  {
+    "file": "20260416-1845-Game_Over_Scene_Fade_Transition-89316010.html",
+    "title": "게임오버 화면 및 페이드 전환"
+  },
+  {
+    "file": "20260416-2149-Playing_Multiple_Audio_Clips_Simultaneously-6fefe321.html",
+    "title": "효과음 동시 재생 지원"
+  },
+  {
+    "file": "20260416-2226-Implementing_Game_Progression_and_Effects-cba3a0a6.html",
+    "title": "게임 진행 연출 정비"
+  },
+  {
+    "file": "20260417-1507-Explaining_Unity_Warning_Message_Causes-889eff8d.html",
+    "title": "컴파일 경고 해소"
+  },
+  {
+    "file": "20260417-1535-Post-Victory_Treasure_Chest_Reward_System-92939ee3.html",
+    "title": "보물상자 보상 시스템 구현"
+  },
+  {
+    "file": "20260417-2056-Unity_HUD_Container_Layout_Adjustment-eb04fc67.html",
+    "title": "HUD 레이아웃 조정"
+  },
+  {
+    "file": "20260417-2149-Implementing_Cumulative_XP_Leveling_System-8d52f079.html",
+    "title": "누적 경험치 레벨 시스템 구현"
+  },
+  {
+    "file": "20260417-2232-Balancing_Block_Appearance_and_Deadlocks-02d6b03f.html",
+    "title": "블록 출현 밸런스 조정"
+  },
+  {
+    "file": "20260418-1536-RPG_Progression_and_Combat_Balancing-18ff67a1.html",
+    "title": "RPG 성장·전투 밸런스 조정"
+  },
+  {
+    "file": "20260418-2320-Bottom_Row_Flashing_Specification_Summary-3d91faa9.html",
+    "title": "최하단 점멸 사양 조정"
+  },
+  {
+    "file": "20260419-1343-English_Localization_of_Gameplay_Tips-a6032af1.html",
+    "title": "게임 TIPS 영어화"
+  },
+  {
+    "file": "20260420-1043-Understanding_Balance_Simulator_Window_Implementation-30cca2ae.html",
+    "title": "밸런스 시뮬레이터 UI Toolkit화"
+  },
+  {
+    "file": "20260421-0955-Investigating_consecutive_enemy_attack_timing-172083c7.html",
+    "title": "적 연속 공격 타이밍 수정"
+  },
+  {
+    "file": "20260430-2156-Resolving_SerializeField_Default_Value_Warnings-09f75093.html",
+    "title": "SerializeField 경고 해소 및 로그 정리"
+  },
+  {
+    "file": "20260430-2228-Fixing_Misaligned_C#_Script_Indentation-f69217d2.html",
+    "title": "C# 들여쓰기 및 주석 정리"
+  },
+  {
+    "file": "20260501-2212-Listing_Current_Implementation_TIPS_Contents-5dcde7de.html",
+    "title": "구현된 TIPS 목록 확인"
+  },
+  {
+    "file": "20260501-2228-Unity_script_analysis_and_necessity-6ae78978.html",
+    "title": "스크립트 역할 및 필요성 확인"
+  },
+  {
+    "file": "20260501-2330-Unity_Project_Documentation_Content_Analysis-63586cb2.html",
+    "title": "\"Ska\"→\"Junk\" 개명 조사"
+  },
+  {
+    "file": "20260502-0004-Analyzing_Unity_Project_Documentation-35a76874.html",
+    "title": "\"Ska\"→\"Junk\" 리네임"
+  },
+  {
+    "file": "20260503-1033-Analyzing_Unity_Project_Documentation_Content-74048e6d.html",
+    "title": "말풍선 문자 폰트 조정"
+  }
+]

@@ -1,0 +1,76 @@
+<h1>Listing Current Implementation TIPS Contents</h1>
+<ul>
+<li><strong>Date:</strong> 2026-05-01 22:12</li>
+<li><strong>Messages:</strong> 2</li>
+</ul>
+<hr>
+<h2>🧑 User</h2>
+<p>현재 구현에서 TIPS로 표시되는 내용을 열거해 주세요.</p>
+<h2>🤖 Assistant</h2>
+<p>현재 <code>Assets/Scripts/CombatManager.cs</code> 내의 <code>TIPS</code> 배열에 정의된 내용은 다음과 같습니다.</p>
+<ol>
+<li><strong>&quot;Ska&quot; (?) blocks cannot be matched. Shatter or Blast them.</strong>（「Ska」블록은 매치시킬 수 없습니다. 파괴(Shatter)하거나 폭파(Blast)해 주세요.）</li>
+<li><strong>Shattering an elemental block drops a &quot;Ska&quot; block from above.</strong>（속성 블록을 파괴하면 위에서 「Ska」블록이 떨어집니다.）</li>
+<li><strong>Shattering or Blasting a &quot;Ska&quot; block drops an elemental block from above.</strong>（「Ska」블록을 파괴하거나 폭파하면 위에서 속성 블록이 떨어집니다.）</li>
+<li><strong>If stuck, focus on shattering &quot;Ska&quot; blocks to find new matches.</strong>（막혔을 때는 「Ska」블록을 파괴해서 새로운 매치를 찾는 데 집중하세요.）</li>
+<li><strong>Match Shields to block incoming physical attacks.</strong>（실드를 매치시켜 적의 물리 공격을 막으세요.）</li>
+<li><strong>Magic matches hit the entire enemy party.</strong>（마법 매치는 적 파티 전체에 데미지를 줍니다.）</li>
+<li><strong>Shields cannot exceed your Max HP.</strong>（실드 값은 최대 HP를 초과할 수 없습니다.）</li>
+<li><strong>Shields cannot block enemy magic attacks.</strong>（실드로 적의 마법 공격을 막을 수는 없습니다.）</li>
+<li><strong>A Key is needed for chests, but you can only carry one.</strong>（보물상자를 열려면 열쇠가 필요하지만, 가질 수 있는 건 하나뿐입니다.）</li>
+<li><strong>Match Gems to gain EXP.</strong>（젬을 매치시켜 경험치를 획득하세요.）</li>
+<li><strong>Matching Heal blocks at full HP grants EXP.</strong>（HP가 가득 찼을 때 회복 블록을 매치시키면 경험치를 획득할 수 있습니다.）</li>
+<li><strong>Matching Keys while holding one grants EXP.</strong>（이미 열쇠를 가지고 있을 때 열쇠를 매치시키면 경험치를 획득할 수 있습니다.）</li>
+<li><strong>Enemies in the back row attack more slowly.</strong>（뒷줄의 적은 공격 속도가 느려집니다.）</li>
+<li><strong>Blasting &quot;Ska&quot; blocks near your matches slightly increases their power.</strong>（매치 근처에서 「Ska」블록을 폭파하면 위력이 약간 상승합니다.）</li>
+</ol>
+<details>
+<summary>🔧 도구: Unity.Grep (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;args&quot;: &quot;-i \&quot;Tips\&quot;&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>Assets/Scripts/CombatManager.cs
+94:    private static readonly string[] TIPS = new string[]
+795:        if (nextTipIndex &gt;= TIPS.Length) yield break;
+798:        string currentTip = TIPS[nextTipIndex];
+</code></pre>
+</details>
+
+<details>
+<summary>🔧 도구: Unity.GetFileContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;endLine&quot;: 110,
+  &quot;filePath&quot;: &quot;Assets/Scripts/CombatManager.cs&quot;,
+  &quot;startLine&quot;: 90
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>90:     private VisualElement tipIcon;
+91:     private VisualElement dialogueBox;
+92:     private Label treasureMessage;
+93: 
+94:     private static readonly string[] TIPS = new string[]
+95:     {
+96:         &quot;\&quot;Ska\&quot; (?) blocks cannot be matched. Shatter or Blast them.&quot;,
+97:         &quot;Shattering an elemental block drops a \&quot;Ska\&quot; block from above.&quot;,
+98:         &quot;Shattering or Blasting a \&quot;Ska\&quot; block drops an elemental block from above.&quot;,
+99:         &quot;If stuck, focus on shattering \&quot;Ska\&quot; blocks to find new matches.&quot;,
+100:         &quot;Match Shields to block incoming physical attacks.&quot;,
+101:         &quot;Magic matches hit the entire enemy party.&quot;,
+102:         &quot;Shields cannot exceed your Max HP.&quot;,
+103:         &quot;Shields cannot block enemy magic attacks.&quot;,
+104:         &quot;A Key is needed for chests, but you can only carry one.&quot;,
+105:         &quot;Match Gems to gain EXP.&quot;,
+106:         &quot;Matching Heal blocks at full HP grants EXP.&quot;,
+107:         &quot;Matching Keys while holding one grants EXP.&quot;,
+108:         &quot;Enemies in the back row attack more slowly.&quot;,
+109:         &quot;Blasting \&quot;Ska\&quot; blocks near your matches slightly increases their power.&quot;
+110:     };
+</code></pre>
+</details>

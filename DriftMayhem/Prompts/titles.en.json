@@ -1,0 +1,12 @@
+{
+  "ae049454": "Player Vehicle Control Prototype Implementation",
+  "cb88226b": "Drift Behavior Reimplementation (Distance Constraint)",
+  "67f2e5d1": "Lock-on Drift Behavior Adjustment",
+  "3a7bfd64": "Tire Smoke Effect Fix",
+  "7081c0b1": "Enemy Drone AI and Damage Handling Implementation",
+  "a95b72cf": "Infinite Terrain Vertex Color Painting",
+  "1f3613a3": "Lock-on Camera Parameter Tuning",
+  "0e1579f0": "Time-based Difficulty Curve Implementation",
+  "2353111c": "Dynamic Material Generation Asset Conversion",
+  "d523ab43": "GLB Texture External Asset Conversion"
+}

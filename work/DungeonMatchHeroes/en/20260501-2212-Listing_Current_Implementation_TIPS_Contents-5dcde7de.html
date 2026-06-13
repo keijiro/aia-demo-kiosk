@@ -1,0 +1,76 @@
+<h1>Listing Current Implementation TIPS Contents</h1>
+<ul>
+<li><strong>Date:</strong> 2026-05-01 22:12</li>
+<li><strong>Messages:</strong> 2</li>
+</ul>
+<hr>
+<h2>🧑 User</h2>
+<p>Please list the contents currently displayed as TIPS in the implementation.</p>
+<h2>🤖 Assistant</h2>
+<p>The following is the content currently defined in the <code>TIPS</code> array in <code>Assets/Scripts/CombatManager.cs</code>.</p>
+<ol>
+<li><strong>&quot;Ska&quot; (?) blocks cannot be matched. Shatter or Blast them.</strong></li>
+<li><strong>Shattering an elemental block drops a &quot;Ska&quot; block from above.</strong></li>
+<li><strong>Shattering or Blasting a &quot;Ska&quot; block drops an elemental block from above.</strong></li>
+<li><strong>If stuck, focus on shattering &quot;Ska&quot; blocks to find new matches.</strong></li>
+<li><strong>Match Shields to block incoming physical attacks.</strong></li>
+<li><strong>Magic matches hit the entire enemy party.</strong></li>
+<li><strong>Shields cannot exceed your Max HP.</strong></li>
+<li><strong>Shields cannot block enemy magic attacks.</strong></li>
+<li><strong>A Key is needed for chests, but you can only carry one.</strong></li>
+<li><strong>Match Gems to gain EXP.</strong></li>
+<li><strong>Matching Heal blocks at full HP grants EXP.</strong></li>
+<li><strong>Matching Keys while holding one grants EXP.</strong></li>
+<li><strong>Enemies in the back row attack more slowly.</strong></li>
+<li><strong>Blasting &quot;Ska&quot; blocks near your matches slightly increases their power.</strong></li>
+</ol>
+<details>
+<summary>🔧 Tool: Unity.Grep (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;args&quot;: &quot;-i \&quot;Tips\&quot;&quot;
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>Assets/Scripts/CombatManager.cs
+94:    private static readonly string[] TIPS = new string[]
+795:        if (nextTipIndex &gt;= TIPS.Length) yield break;
+798:        string currentTip = TIPS[nextTipIndex];
+</code></pre>
+</details>
+
+<details>
+<summary>🔧 Tool: Unity.GetFileContent (CoreAgent)</summary>
+
+<p><strong>引数</strong></p>
+<pre><code class="language-json">{
+  &quot;endLine&quot;: 110,
+  &quot;filePath&quot;: &quot;Assets/Scripts/CombatManager.cs&quot;,
+  &quot;startLine&quot;: 90
+}
+</code></pre>
+<p><strong>結果</strong></p>
+<pre><code>90:     private VisualElement tipIcon;
+91:     private VisualElement dialogueBox;
+92:     private Label treasureMessage;
+93: 
+94:     private static readonly string[] TIPS = new string[]
+95:     {
+96:         &quot;\&quot;Ska\&quot; (?) blocks cannot be matched. Shatter or Blast them.&quot;,
+97:         &quot;Shattering an elemental block drops a \&quot;Ska\&quot; block from above.&quot;,
+98:         &quot;Shattering or Blasting a \&quot;Ska\&quot; block drops an elemental block from above.&quot;,
+99:         &quot;If stuck, focus on shattering \&quot;Ska\&quot; blocks to find new matches.&quot;,
+100:         &quot;Match Shields to block incoming physical attacks.&quot;,
+101:         &quot;Magic matches hit the entire enemy party.&quot;,
+102:         &quot;Shields cannot exceed your Max HP.&quot;,
+103:         &quot;Shields cannot block enemy magic attacks.&quot;,
+104:         &quot;A Key is needed for chests, but you can only carry one.&quot;,
+105:         &quot;Match Gems to gain EXP.&quot;,
+106:         &quot;Matching Heal blocks at full HP grants EXP.&quot;,
+107:         &quot;Matching Keys while holding one grants EXP.&quot;,
+108:         &quot;Enemies in the back row attack more slowly.&quot;,
+109:         &quot;Blasting \&quot;Ska\&quot; blocks near your matches slightly increases their power.&quot;
+110:     };
+</code></pre>
+</details>
