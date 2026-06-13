@@ -72,14 +72,16 @@ tailwind.config = {
         "sm": "8px"
       },
       fontFamily: {
-        "label-md": ["Source Serif 4"],
-        "label-sm": ["Source Serif 4"],
-        "body-lg": ["Source Serif 4"],
-        "display-lg-mobile": ["EB Garamond"],
-        "body-md": ["Source Serif 4"],
-        "headline-md": ["EB Garamond"],
-        "headline-sm": ["EB Garamond"],
-        "display-lg": ["EB Garamond"]
+        // Serif (project titles only). Sans for everything else.
+        // The stacks live in kiosk.css :root (--kiosk-serif / --kiosk-sans).
+        "display-lg": ["var(--kiosk-serif)"],
+        "display-lg-mobile": ["var(--kiosk-serif)"],
+        "headline-md": ["var(--kiosk-serif)"],
+        "headline-sm": ["var(--kiosk-sans)"],
+        "body-lg": ["var(--kiosk-sans)"],
+        "body-md": ["var(--kiosk-sans)"],
+        "label-md": ["var(--kiosk-sans)"],
+        "label-sm": ["var(--kiosk-sans)"]
       },
       fontSize: {
         "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],

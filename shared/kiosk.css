@@ -1,5 +1,14 @@
 /* Shared design tokens and component styles for all kiosk pages. */
 
+/* Font stacks (single source of truth; also referenced from tailwind-config.js).
+   Serif = project titles + log H1 (EB Garamond for Latin; generic `serif` gives a
+   CJK serif for ja/ko). Everything else uses the sans stack. */
+:root {
+  --kiosk-serif: "EB Garamond", "Source Serif 4", serif;
+  --kiosk-sans: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --kiosk-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 body {
   background-color: #000000;
   color: #e2e2e2;
@@ -13,7 +22,7 @@ body {
 /* Top-right language dropdown (injected by shared/i18n.js). */
 #lang-switch {
   position: fixed; top: 16px; right: 16px; z-index: 50;
-  font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; font-size: 13px; letter-spacing: 0.03em;
+  font-family: var(--kiosk-sans); font-size: 13px; letter-spacing: 0.03em;
   padding: 5px 34px 5px 12px; background-color: #0e0e0e; color: #e2e2e2;
   border: 1px solid #444748; border-radius: 0; cursor: pointer;
   -webkit-appearance: none; appearance: none;
@@ -62,12 +71,12 @@ body {
 }
 
 /* Pre-rendered Markdown prose for the Prompt Log (plain HTML, no utility classes). */
-.prompt-md { color: #e2e2e2; font-family: "Source Serif 4", serif; font-size: 16px; line-height: 1.6; }
+.prompt-md { color: #e2e2e2; font-family: var(--kiosk-sans); font-size: 16px; line-height: 1.6; }
 .prompt-md > :first-child { margin-top: 0; }
-.prompt-md h1 { font-family: "EB Garamond", serif; font-size: 32px; line-height: 1.2; color: #ffffff; margin: 0 0 16px; }
-.prompt-md h2 { font-family: "EB Garamond", serif; font-size: 24px; line-height: 1.3; color: #ffffff; margin: 40px 0 16px; padding-top: 24px; border-top: 1px solid #353535; }
-.prompt-md h3 { font-family: "EB Garamond", serif; font-size: 20px; line-height: 1.3; color: #ffffff; margin: 24px 0 8px; }
-.prompt-md h4, .prompt-md h5, .prompt-md h6 { font-family: "EB Garamond", serif; color: #ffffff; margin: 20px 0 8px; }
+.prompt-md h1 { font-family: var(--kiosk-serif); font-size: 32px; line-height: 1.2; color: #ffffff; margin: 0 0 16px; }
+.prompt-md h2 { font-family: var(--kiosk-sans); font-size: 18px; line-height: 1.3; color: #ffffff; margin: 40px 0 16px; padding-top: 24px; border-top: 1px solid #353535; }
+.prompt-md h3 { font-family: var(--kiosk-sans); font-size: 20px; line-height: 1.3; color: #ffffff; margin: 24px 0 8px; }
+.prompt-md h4, .prompt-md h5, .prompt-md h6 { font-family: var(--kiosk-sans); color: #ffffff; margin: 20px 0 8px; }
 .prompt-md p { margin: 12px 0; }
 .prompt-md ul, .prompt-md ol { margin: 12px 0; padding-left: 24px; }
 .prompt-md li { margin: 4px 0; }
@@ -78,7 +87,7 @@ body {
 .prompt-md a { color: #ffffff; text-decoration: underline; text-underline-offset: 2px; }
 .prompt-md hr { border: 0; border-top: 1px solid #353535; margin: 24px 0; }
 .prompt-md blockquote { margin: 12px 0; padding-left: 16px; border-left: 2px solid #444748; color: #c4c7c8; }
-.prompt-md code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875em; background: #1b1b1b; padding: 2px 6px; border-radius: 4px; }
+.prompt-md code { font-family: var(--kiosk-mono); font-size: 0.875em; background: #1b1b1b; padding: 2px 6px; border-radius: 4px; }
 .prompt-md pre { background: #0e0e0e; border: 1px solid #353535; border-radius: 4px; padding: 16px; margin: 16px 0; overflow-x: auto; }
 .prompt-md pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.5; color: #e2e2e2; }
 .prompt-md table { width: 100%; border-collapse: collapse; margin: 16px 0; }
@@ -97,4 +106,4 @@ body {
 #unity-poster { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 0; background: #0e0e0e; color: #e2e2e2; cursor: pointer; transition: background 0.2s, color 0.2s; }
 #unity-poster:hover { background: #1b1b1b; color: #ffffff; }
 #unity-poster .material-symbols-outlined { font-size: 64px; }
-#unity-poster .unity-poster-label { font-family: "Source Serif 4", serif; font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+#unity-poster .unity-poster-label { font-family: var(--kiosk-sans); font-size: 14px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
